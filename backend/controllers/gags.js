@@ -11,4 +11,8 @@ exports.commentGag = (req, res, next) => {};
 exports.updateCommGag = (req, res, next) => {};
 exports.deleteCommGag = (req, res, next) => {};
 exports.getTheGag = (req, res, next) => {};
-exports.getAllGags = (req, res, next) => {};
+exports.getAllGags = (req, res, next) => {
+	Gag.findAll()
+		.then((gags) => res.status(200).json(gags))
+		.catch((error) => res.status(404).json({ error }));
+};
