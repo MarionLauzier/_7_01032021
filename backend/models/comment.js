@@ -27,8 +27,11 @@ Comment.init(
 	},
 	{
 		hooks: {
+			afterCreate: (comment, options) => {
+				Gag.increment("nbComments", { where: { _id: comment.gagId } });
+			},
 			beforeDestroy: (comment, options) => {
-				Gag.decrement("nbComment", { where: { _id: comment.userId } });
+				Gag.decrement("nbComments", { where: { _id: comment.gagId } });
 			},
 		},
 		sequelize: db,

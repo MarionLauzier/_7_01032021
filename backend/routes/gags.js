@@ -2,14 +2,16 @@ const express = require("express");
 
 const router = express.Router();
 const auth = require("../middlewares/auth");
+const allowed = require("../middlewares/allowed");
+const test = require("../middlewares/test");
 const multer = require("../middlewares/multer-image");
 const gagsCtrl = require("../controllers/gags");
 
 router.post("/", auth, multer, gagsCtrl.addGag);
 
-router.put("/:id", auth, multer, gagsCtrl.updateGag);
+router.put("/:id", auth, allowed, multer, gagsCtrl.updateGag);
 
-router.delete("/:id", auth, gagsCtrl.deleteGag);
+router.delete("/:id", auth, allowed, gagsCtrl.deleteGag);
 
 router.post("/:id/like", auth, gagsCtrl.likeGag);
 
