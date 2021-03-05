@@ -4,6 +4,9 @@ const Comment = require("../models/comment");
 const fs = require("fs");
 
 exports.addGag = (req, res, next) => {
+	if (req.UserIsNotValid) {
+		return res.status(401).json({ error: req.UserIsNotValid });
+	}
 	const GagObject = JSON.parse(req.body.gag);
 	//console.log(GagObject);
 	delete GagObject._id;
@@ -21,6 +24,9 @@ exports.addGag = (req, res, next) => {
 };
 
 exports.updateGag = (req, res, next) => {
+	if (req.UserIsNotValid) {
+		return res.status(401).json({ error: req.UserIsNotValid });
+	}
 	const gagObject = req.file
 		? {
 				...JSON.parse(req.body.gag),
