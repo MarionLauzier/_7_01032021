@@ -17,9 +17,9 @@ router.post("/:id/like", auth, gagsCtrl.likeGag);
 
 router.post("/:id/comment", auth, gagsCtrl.commentGag);
 
-router.put("/:id/comment/:comid", auth, gagsCtrl.updateCommGag);
+router.put("/:id/comment/:comid", auth, allowed, gagsCtrl.updateCommGag);
 
-router.delete("/:id/comment/:comid", auth, gagsCtrl.deleteCommGag);
+router.delete("/:id/comment/:comid", auth, allowed, gagsCtrl.deleteCommGag);
 
 router.get("/:id", auth, gagsCtrl.getTheGag);
 

@@ -25,7 +25,31 @@ Like.init(
 			onDelete: "cascade",
 		},
 	},
-	{ sequelize: db, modelName: "Like", tableName: "Likes" }
+	{
+		hooks: {
+			afterCreate: (like, options) => {
+				let count;
+				if (like.isLiked) {
+					count = "likes";
+				} else {
+					count = "dislikes";
+				}
+				Gag.increment(count, { where: { _id: like.gagId } });
+			},
+			beforeDestroy: (like, options) => {
+				let count;
+				if (like.isLiked) {
+					count = "likes";
+				} else {
+					count = "dislikes";
+				}
+				Gag.decrement(count, { where: { _id: like.gagId } });
+			},
+		},
+		sequelize: db,
+		modelName: "Like",
+		tableName: "Likes",
+	}
 );
 //Sequelize automatically adds the timestamp columns createdAt and updatedAt
 

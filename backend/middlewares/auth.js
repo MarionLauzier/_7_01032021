@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
 		req.tokenUserId = userId_decoded;
 		req.tokenIsAdmin = decodedToken.isAdmin;
 		const bodyUserId = req.body.userId;
-		if (bodyUserId && bodyUserId !== userId_decoded) {
+		if (bodyUserId && bodyUserId != userId_decoded) {
 			throw "Invalid user ID";
 		} else {
 			next();
