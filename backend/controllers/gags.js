@@ -50,13 +50,13 @@ exports.deleteGag = (req, res, next) => {
 	const gag = req.object;
 	const filename = gag.imageUrl.split("/images/")[1];
 	//delete the image file
-	fs.unlink(`images/${filename}`, () => {
-		//delete the gag from the database
-		gag
-			.destroy()
-			.then(() => res.status(200).json({ message: "Gag was deleted !" }))
-			.catch((error) => res.status(400).json({ error }));
-	});
+	//fs.unlink(`images/${filename}`, () => {
+	//delete the gag from the database
+	gag
+		.destroy()
+		.then(() => res.status(200).json({ message: "Gag was deleted !" }))
+		.catch((error) => res.status(400).json({ error }));
+	//});
 };
 
 exports.likeGag = (req, res, next) => {

@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const db = require("../config/db-config");
 const User = require("./user");
+const fs = require("fs");
 
 class Gag extends Model {}
 Gag.init(
@@ -23,7 +24,17 @@ Gag.init(
 		dislikes: { type: DataTypes.INTEGER.UNSIGNED },
 		nbComments: { type: DataTypes.INTEGER.UNSIGNED },
 	},
-	{ sequelize: db, modelName: "Gag", tableName: "Gags" }
+	{
+		hooks: {
+			beforeDestroy: (gag, options) => {
+				const filename = gag.imageUrl.split("/images/")[1];
+				fs.unlink(`images/${filename}`, () => {});
+			},
+		},
+		sequelize: db,
+		modelName: "Gag",
+		tableName: "Gags",
+	}
 );
 //Sequelize automatically adds the timestamp columns createdAt and updatedAt
 
