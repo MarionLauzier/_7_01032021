@@ -1,9 +1,5 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
-//a voir si utile
-const Gag = require("../models/gag");
-const Like = require("../models/like");
-const Comment = require("../models/comment");
 const jwt = require("jsonwebtoken");
 const passwordValidator = require("password-validator");
 var passwordCheck = new passwordValidator();
@@ -66,11 +62,14 @@ exports.login = (req, res, next) => {
 };
 exports.unsuscribe = (req, res, next) => {
 	//user must be logged in in order to unsuscribe, hence his request will arrive with an authorization token
-	// const token = req.headers.authorization.split(" ")[1];
-	// const decodedToken = jwt.verify(token, "GroupomaniaGAG_RandomTokenSecretKey");
-	// const tokenUserId = decodedToken.userId;
-	User.destroy({ where: { _id: req.params.userid } })
-		.then(() => res.status(200).json({ message: "Account deleted!" }))
-		.catch((error) => res.status(400).json({ error }));
+	if (req.tokenUserId == req.params.userid) {
+		User.destroy({ where: { _id: req.params.userid } })
+			.then(() => res.status(200).json({ message: "Account deleted!" }))
+			.catch((error) => res.status(400).json({ error }));
+	} else {
+		return res
+			.status(401)
+			.json({ error: "You are not allowed to delete this profile!" });
+	}
 	//delete by cascade all comments, likes, and gags (and comments and likes associated to the gag) of the user
 };
