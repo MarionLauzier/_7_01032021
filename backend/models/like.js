@@ -16,7 +16,7 @@ Like.init(
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false,
 			references: { model: User, key: "_id" },
-			onDelete: "cascade",
+			onDelete: "restrict",
 		},
 		gagId: {
 			type: DataTypes.INTEGER.UNSIGNED,

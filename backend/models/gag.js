@@ -17,7 +17,7 @@ Gag.init(
 			type: DataTypes.INTEGER.UNSIGNED,
 			allowNull: false,
 			references: { model: User, key: "_id" },
-			onDelete: "cascade",
+			onDelete: "restrict",
 		},
 		// compteurs à garder ou pas ... comment mettre à jour avec unsuscribe par ex.
 		likes: { type: DataTypes.INTEGER.UNSIGNED },
