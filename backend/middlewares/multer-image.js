@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 module.exports = multer({
 	storage: storage,
 	fileFilter: (req, file, callback) => {
-		const bodyUserId = JSON.parse(req.body.gag).userId;
+		const bodyUserId = JSON.parse(req.body.gag).UserId; //u
 		if (bodyUserId && req.tokenUserId == bodyUserId) {
 			callback(null, true);
 		}

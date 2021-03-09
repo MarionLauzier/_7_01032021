@@ -29,6 +29,7 @@ Comment.init(
 		hooks: {
 			afterCreate: (comment, options) => {
 				Gag.increment("nbComments", { where: { _id: comment.gagId } });
+				console.log("hello");
 			},
 			beforeDestroy: (comment, options) => {
 				Gag.decrement("nbComments", { where: { _id: comment.gagId } });

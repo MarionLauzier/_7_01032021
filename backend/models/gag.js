@@ -13,12 +13,12 @@ Gag.init(
 		},
 		description: { type: DataTypes.STRING },
 		imageUrl: { type: DataTypes.STRING, allowNull: false },
-		userId: {
-			type: DataTypes.INTEGER.UNSIGNED,
-			allowNull: false,
-			references: { model: User, key: "_id" },
-			onDelete: "cascade",
-		},
+		// userId: {
+		// 	type: DataTypes.INTEGER.UNSIGNED,
+		// 	allowNull: false,
+		// 	references: { model: User, key: "_id" },
+		// 	//onDelete: "cascade",
+		// },
 		// compteurs à garder ou pas ... comment mettre à jour avec unsuscribe par ex.
 		likes: { type: DataTypes.INTEGER.UNSIGNED },
 		dislikes: { type: DataTypes.INTEGER.UNSIGNED },
@@ -27,8 +27,12 @@ Gag.init(
 	{
 		hooks: {
 			beforeDestroy: (gag, options) => {
+				console.log("hello");
 				const filename = gag.imageUrl.split("/images/")[1];
 				fs.unlink(`images/${filename}`, () => {});
+			},
+			beforeBulkDestroy: (options) => {
+				console.log("hello2");
 			},
 		},
 		sequelize: db,
@@ -37,5 +41,17 @@ Gag.init(
 	}
 );
 //Sequelize automatically adds the timestamp columns createdAt and updatedAt
+User.hasMany(Gag, {
+	//foreignKey: { name: "userId", allowNull: false },
+	onDelete: "CASCADE",
+	hooks: true,
+});
+Gag.belongsTo(User);
+// Gag.belongsTo(
+// 	User,
+// 	{ foreignKey: { name: "userId" }, onDelete: "CASCADE", hooks: true }
+// onDelete: "CASCADE",
+// hooks: true,
+//);
 
 module.exports = Gag;

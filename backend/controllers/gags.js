@@ -8,7 +8,6 @@ exports.addGag = (req, res, next) => {
 		return res.status(401).json({ error: req.UserIsNotValid });
 	}
 	const GagObject = JSON.parse(req.body.gag);
-	//console.log(GagObject);
 	delete GagObject._id;
 	Gag.create({
 		...GagObject,

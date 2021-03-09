@@ -63,7 +63,7 @@ exports.login = (req, res, next) => {
 exports.unsuscribe = (req, res, next) => {
 	//user must be logged in in order to unsuscribe, hence his request will arrive with an authorization token
 	if (req.tokenUserId == req.params.userid) {
-		User.destroy({ where: { _id: req.params.userid } })
+		User.destroy({ where: { _id: req.params.userid }, individualHooks: true })
 			.then(() => res.status(200).json({ message: "Account deleted!" }))
 			.catch((error) => res.status(400).json({ error }));
 	} else {
