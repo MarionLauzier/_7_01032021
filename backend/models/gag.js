@@ -37,5 +37,10 @@ Gag.init(
 	}
 );
 //Sequelize automatically adds the timestamp columns createdAt and updatedAt
-
+User.hasMany(Gag, {
+	foreignKey: { name: "userId", allowNull: false },
+	onDelete: "restrict",
+	hooks: true,
+});
+Gag.belongsTo(User, { foreignKey: "userId" });
 module.exports = Gag;

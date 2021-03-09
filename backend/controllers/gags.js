@@ -1,3 +1,4 @@
+const User = require("../models/user");
 const Gag = require("../models/gag");
 const Like = require("../models/like");
 const Comment = require("../models/comment");
@@ -99,42 +100,61 @@ exports.likeGag = (req, res, next) => {
 		return res.status(400).json({ error: "Invalid resquest!" });
 	}
 };
-exports.commentGag = (req, res, next) => {
-	delete req.body._id;
-	Comment.create({
-		...req.body,
-		gagId: req.params.id,
-	})
-		.then(() => res.status(201).json({ message: "Comment is created !" }))
-		.catch((error) => res.status(400).json({ error }));
-};
-exports.updateCommGag = (req, res, next) => {
-	const comment = req.object;
-	delete req.body._id;
-	comment
-		.update({ ...req.body })
-		.then(() => {
-			res.status(200).json({ message: "Comment is modified !" });
-		})
-		.catch((error) => res.status(400).json({ error }));
-};
-exports.deleteCommGag = (req, res, next) => {
-	const comment = req.object;
-	comment
-		.destroy()
-		.then(() => res.status(200).json({ message: "Comment was deleted !" }))
-		.catch((error) => res.status(400).json({ error }));
-};
 
 //récupération d'un gag
+// exports.getTheGag = (req, res, next) => {
+// 	Gag.findByPk(req.params.id, {
+// 		include: { model: User, attributes: ["pseudo"] },
+// 	})
+// 		.then((gag) => {
+// 			Like.findOne({ where: { gagId: gag._id, userId: req.tokenUserId } })
+// 				.then((like) => {
+// 					let gagWithLike;
+// 					if (like === null) {
+// 						gagWithLike = { ...gag.toJSON(), likedByUser: 0 };
+// 					} else {
+// 						if (like.isLiked) {
+// 							gagWithLike = { ...gag.toJSON(), likedByUser: 1 };
+// 						} else {
+// 							gagWithLike = { ...gag.toJSON(), likedByUser: -1 };
+// 						}
+// 					}
+// 					return res.status(200).json(gagWithLike);
+// 				})
+// 				.catch((error) => res.status(500).json({ error }));
+// 		})
+// 		.catch((error) => res.status(404).json({ error }));
+// };
+
 exports.getTheGag = (req, res, next) => {
-	Gag.findByPk(req.params.id)
+	Gag.findByPk(req.params.id, {
+		include: [
+			{ model: User, attributes: ["pseudo"] },
+			{
+				model: Like,
+				where: { userId: req.tokenUserId },
+				attributes: ["isLiked"],
+				required: false,
+			},
+		],
+	})
 		.then((gag) => res.status(200).json(gag))
 		.catch((error) => res.status(404).json({ error }));
 };
 // récupération de tous les Gag
 exports.getAllGags = (req, res, next) => {
-	Gag.findAll()
+	Gag.findAll({
+		include: [
+			{ model: User, attributes: ["pseudo"] },
+			{
+				model: Like,
+				where: { userId: req.tokenUserId },
+				attributes: ["isLiked"],
+				required: false,
+			},
+		],
+		order: [["createdAt", "DESC"]],
+	})
 		.then((gags) => res.status(200).json(gags))
 		.catch((error) => res.status(404).json({ error }));
 };

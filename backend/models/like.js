@@ -52,5 +52,5 @@ Like.init(
 	}
 );
 //Sequelize automatically adds the timestamp columns createdAt and updatedAt
-
+Gag.hasMany(Like, { foreignKey: { name: "gagId", allowNull: false } });
 module.exports = Like;

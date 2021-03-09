@@ -40,5 +40,11 @@ Comment.init(
 	}
 );
 //Sequelize automatically adds the timestamp columns createdAt and updatedAt
+User.hasMany(Comment, {
+	foreignKey: { name: "userId", allowNull: false },
+	onDelete: "restrict",
+	hooks: true,
+});
+Comment.belongsTo(User, { foreignKey: "userId" });
 
 module.exports = Comment;
