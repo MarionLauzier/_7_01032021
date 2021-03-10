@@ -32,6 +32,7 @@ exports.getAllCommGag = (req, res, next) => {
 	Comment.findAll({
 		where: { gagId: req.params.id },
 		include: { model: User, attributes: ["pseudo"] },
+		order: [["createdAt", "DESC"]],
 	})
 		.then((comments) => res.status(200).json(comments))
 		.catch((error) => res.status(400).json({ error }));

@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Gag = require("../models/gag");
 const Like = require("../models/like");
 const Comment = require("../models/comment");
+const Sequelize = require("sequelize");
 const fs = require("fs");
 
 exports.addGag = (req, res, next) => {
@@ -55,15 +56,10 @@ exports.updateGag = (req, res, next) => {
 
 exports.deleteGag = (req, res, next) => {
 	const gag = req.object;
-	const filename = gag.imageUrl.split("/images/")[1];
-	//delete the image file
-	//fs.unlink(`images/${filename}`, () => {
-	//delete the gag from the database
 	gag
 		.destroy()
 		.then(() => res.status(200).json({ message: "Gag was deleted !" }))
 		.catch((error) => res.status(400).json({ error }));
-	//});
 };
 
 exports.likeGag = (req, res, next) => {
@@ -100,32 +96,7 @@ exports.likeGag = (req, res, next) => {
 		return res.status(400).json({ error: "Invalid resquest!" });
 	}
 };
-
-//récupération d'un gag
-// exports.getTheGag = (req, res, next) => {
-// 	Gag.findByPk(req.params.id, {
-// 		include: { model: User, attributes: ["pseudo"] },
-// 	})
-// 		.then((gag) => {
-// 			Like.findOne({ where: { gagId: gag._id, userId: req.tokenUserId } })
-// 				.then((like) => {
-// 					let gagWithLike;
-// 					if (like === null) {
-// 						gagWithLike = { ...gag.toJSON(), likedByUser: 0 };
-// 					} else {
-// 						if (like.isLiked) {
-// 							gagWithLike = { ...gag.toJSON(), likedByUser: 1 };
-// 						} else {
-// 							gagWithLike = { ...gag.toJSON(), likedByUser: -1 };
-// 						}
-// 					}
-// 					return res.status(200).json(gagWithLike);
-// 				})
-// 				.catch((error) => res.status(500).json({ error }));
-// 		})
-// 		.catch((error) => res.status(404).json({ error }));
-// };
-
+// récupération d'un gag ainsi que tous les commentaires associées avec le pseudo  de l'auteur.
 exports.getTheGag = (req, res, next) => {
 	Gag.findByPk(req.params.id, {
 		include: [
@@ -136,24 +107,60 @@ exports.getTheGag = (req, res, next) => {
 				attributes: ["isLiked"],
 				required: false,
 			},
+			{
+				model: Comment,
+				attributes: ["content", "createdAt"],
+				required: false,
+				include: { model: User, attributes: ["pseudo"] },
+				order: [["createdAt", "DESC"]],
+			},
 		],
 	})
 		.then((gag) => res.status(200).json(gag))
 		.catch((error) => res.status(404).json({ error }));
 };
-// récupération de tous les Gag
+// récupération des 10 Gags correspondants aux critères des paramètres, par défault les 10 plus récent
 exports.getAllGags = (req, res, next) => {
+	//select order of the results based on the user choice
+	let customOrder = [["createdAt", "DESC"]];
+	switch (req.query.sort) {
+		case "popular":
+			customOrder.unshift(["likes", "DESC"]);
+			break;
+		case "unpopular":
+			customOrder.unshift(["dislikes", "DESC"]);
+			break;
+		case "comment":
+			customOrder.unshift(["nbcomments", "DESC"]);
+			break;
+		case "recent":
+			break;
+		default:
+			break;
+	}
+	// calculate offset of results based on page number
+	const offset = req.query.page ? (parseInt(req.query.page) - 1) * 10 : 0;
+	// contenu recherché dans la descrpition
+	const search = req.query.search
+		? Sequelize.literal(
+				"MATCH (Gag.description) AGAINST ('" + req.query.search + "')"
+		  )
+		: {};
 	Gag.findAll({
+		where: search,
 		include: [
 			{ model: User, attributes: ["pseudo"] },
 			{
+				// add whether the current user already liked/disliked or not the gag
 				model: Like,
 				where: { userId: req.tokenUserId },
 				attributes: ["isLiked"],
 				required: false,
 			},
 		],
-		order: [["createdAt", "DESC"]],
+		order: customOrder,
+		limit: 10,
+		offset: offset,
 	})
 		.then((gags) => res.status(200).json(gags))
 		.catch((error) => res.status(404).json({ error }));

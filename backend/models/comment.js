@@ -46,5 +46,6 @@ User.hasMany(Comment, {
 	hooks: true,
 });
 Comment.belongsTo(User, { foreignKey: "userId" });
+Gag.hasMany(Comment, { foreignKey: { name: "gagId", allowNull: false } });
 
 module.exports = Comment;

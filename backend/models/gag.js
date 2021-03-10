@@ -25,6 +25,9 @@ Gag.init(
 		nbComments: { type: DataTypes.INTEGER.UNSIGNED },
 	},
 	{
+		indexes: [
+			{ type: "FULLTEXT", fields: ["description"], name: "desc_index" },
+		],
 		hooks: {
 			beforeDestroy: (gag, options) => {
 				const filename = gag.imageUrl.split("/images/")[1];
