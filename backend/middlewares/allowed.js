@@ -14,7 +14,6 @@ module.exports = (req, res, next) => {
 	table
 		.findByPk(param)
 		.then((object) => {
-			//console.log(object.userId);
 			if (
 				object.userId == req.tokenUserId ||
 				(req.method == "DELETE" && req.tokenIsAdmin)

@@ -10,7 +10,6 @@ exports.addGag = (req, res, next) => {
 		return res.status(401).json({ error: req.UserIsNotValid });
 	}
 	const GagObject = JSON.parse(req.body.gag);
-	//console.log(GagObject);
 	delete GagObject._id;
 	Gag.create({
 		...GagObject,
@@ -100,7 +99,7 @@ exports.likeGag = (req, res, next) => {
 exports.getTheGag = (req, res, next) => {
 	Gag.findByPk(req.params.id, {
 		include: [
-			{ model: User, attributes: ["pseudo"] },
+			{ model: User, attributes: ["pseudo", "_id"] },
 			{
 				model: Like,
 				where: { userId: req.tokenUserId },
@@ -111,7 +110,7 @@ exports.getTheGag = (req, res, next) => {
 				model: Comment,
 				attributes: ["content", "createdAt"],
 				required: false,
-				include: { model: User, attributes: ["pseudo"] },
+				include: { model: User, attributes: ["pseudo", "_id"] },
 				order: [["createdAt", "DESC"]],
 			},
 		],
@@ -149,7 +148,7 @@ exports.getAllGags = (req, res, next) => {
 	Gag.findAll({
 		where: search,
 		include: [
-			{ model: User, attributes: ["pseudo"] },
+			{ model: User, attributes: ["pseudo", "_id"] },
 			{
 				// add whether the current user already liked/disliked or not the gag
 				model: Like,

@@ -31,7 +31,7 @@ exports.deleteCommGag = (req, res, next) => {
 exports.getAllCommGag = (req, res, next) => {
 	Comment.findAll({
 		where: { gagId: req.params.id },
-		include: { model: User, attributes: ["pseudo"] },
+		include: { model: User, attributes: ["pseudo", "_id"] },
 		order: [["createdAt", "DESC"]],
 	})
 		.then((comments) => res.status(200).json(comments))

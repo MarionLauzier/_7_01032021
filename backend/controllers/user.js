@@ -100,3 +100,21 @@ exports.unsuscribe = (req, res, next) => {
 	}
 	//comments and likes associated to destroyed gags are deleted by cascade
 };
+
+exports.getProfile = (req, res, next) => {
+	let fields = ["pseudo", "departement", "createdAt"];
+	if (req.params.userid == req.tokenUserId) {
+		fields.unshift("email");
+	}
+	User.findByPk(req.params.userid, {
+		attributes: fields,
+		include: {
+			model: Gag,
+			required: false,
+			order: [["createdAt", "DESC"]],
+			limit: 10,
+		},
+	})
+		.then((profile) => res.status(201).json(profile))
+		.catch((error) => res.status(404).json({ error }));
+};

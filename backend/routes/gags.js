@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/auth");
 const allowed = require("../middlewares/allowed");
-const test = require("../middlewares/test");
 const multer = require("../middlewares/multer-image");
 const gagsCtrl = require("../controllers/gags");
 const commentsCtrl = require("../controllers/comments");
