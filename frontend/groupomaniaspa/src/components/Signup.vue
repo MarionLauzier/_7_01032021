@@ -43,6 +43,7 @@
 		</p>
 		<label for="departement">Département de l'entreprise</label
 		><input type="text" id="departement" v-model="departement" required />
+		<p> Les champs marqués d'une * sont obligatoires. </p>
 		<button type="submit" @click="signup">S'inscrire</button>
 		<p>réponse de l'api: {{ response }}</p>
 	</form>
@@ -93,7 +94,8 @@ export default {
 				})
 				.catch((error) => {
 					this.response = error;
-				});
+				})
+				.then(()=> {this.$store.dispatch("login", [this.email, this.password]);});
 			//.then login et redirection
 		},
 		checkEmail() {
