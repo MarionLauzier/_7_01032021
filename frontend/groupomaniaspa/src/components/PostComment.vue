@@ -48,6 +48,7 @@ export default {
 					} else {
 						this.response = message;
 						this.content = "";
+						this.$emit("reload-comments");
 					}
 				})
 				.catch((error) => {

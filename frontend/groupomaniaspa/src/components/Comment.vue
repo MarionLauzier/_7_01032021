@@ -26,7 +26,7 @@
 			<p>{{ comment.content }}</p>
 			<button
 				type="button"
-				v-if="comment.userId == userId || isAdmin"
+				v-if="comment.userId == userId"
 				@click="modifyComment(comment._id)"
 			>
 				Modifier

@@ -8,8 +8,9 @@ export default new Vuex.Store({
 		userId: "2",
 		isAdmin: "",
 		token:
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MTU5NjA3MDksImV4cCI6MTYxNjAwMzkwOX0.HvSnBPLaM326VHIrq74dT-u3d-5EJk9mU4hIy2Z-lSI",
+			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MTYxNDgxNjEsImV4cCI6MTYxNjE5MTM2MX0.g9NOwGyFNrh1gkFDO9HUXm9eTZJ_k0qxbwN4ftDSlSU",
 		loginError: "",
+		gagMod: "",
 	},
 	mutations: {
 		SET_USER(state, payload) {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
 			state.isAdmin = "";
 			state.token = "";
 			state.loginError = "";
+		},
+		SET_GAG_MOD(state, payload) {
+			state.gagMod = payload;
 		},
 	},
 	actions: {
@@ -55,6 +59,9 @@ export default new Vuex.Store({
 		},
 		logout(context) {
 			context.commit("CLEAR_STORE");
+		},
+		saveGag(context, gag) {
+			context.commit("SET_GAG_MOD", gag);
 		},
 	},
 	modules: {},
