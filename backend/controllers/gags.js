@@ -99,20 +99,20 @@ exports.likeGag = (req, res, next) => {
 exports.getTheGag = (req, res, next) => {
 	Gag.findByPk(req.params.id, {
 		include: [
-			{ model: User, attributes: ["pseudo", "_id"] },
+			{ model: User, attributes: ["pseudo"] },
 			{
 				model: Like,
 				where: { userId: req.tokenUserId },
 				attributes: ["isLiked"],
 				required: false,
 			},
-			{
-				model: Comment,
-				attributes: ["content", "createdAt"],
-				required: false,
-				include: { model: User, attributes: ["pseudo", "_id"] },
-				order: [["createdAt", "DESC"]],
-			},
+			// {
+			// 	model: Comment,
+			// 	attributes: ["content", "createdAt"],
+			// 	required: false,
+			// 	include: { model: User, attributes: ["pseudo", "_id"] },
+			// 	order: [["createdAt", "DESC"]],
+			// },
 		],
 	})
 		.then((gag) => res.status(200).json(gag))
@@ -148,7 +148,7 @@ exports.getAllGags = (req, res, next) => {
 	Gag.findAll({
 		where: search,
 		include: [
-			{ model: User, attributes: ["pseudo", "_id"] },
+			{ model: User, attributes: ["pseudo"] },
 			{
 				// add whether the current user already liked/disliked or not the gag
 				model: Like,

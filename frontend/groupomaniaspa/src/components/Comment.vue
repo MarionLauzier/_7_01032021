@@ -21,7 +21,11 @@
 			:key="comment._id"
 			:id="comment._id"
 		>
-			<a> {{ comment.User.pseudo }} </a>
+			<router-link
+				:to="{ name: 'Profile', params: { userId: comment.userId } }"
+			>
+				{{ comment.User.pseudo }}
+			</router-link>
 			<span> - {{ setTimeDiff(comment.createdAt) }}</span>
 			<p>{{ comment.content }}</p>
 			<button

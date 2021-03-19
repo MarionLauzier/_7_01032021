@@ -1,6 +1,8 @@
 <template>
 	<div :key="componentKey">
-		<a> {{ pseudo }} </a>
+		<router-link :to="{ name: 'Profile', params: { userId: gagUserId } }">
+			{{ pseudo }}
+		</router-link>
 		<span> - {{ setTimeDiff(createdAt) }}</span>
 		<a
 			><p>{{ description }}</p>

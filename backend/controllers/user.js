@@ -114,6 +114,15 @@ exports.getProfile = (req, res, next) => {
 			required: false,
 			order: [["createdAt", "DESC"]],
 			limit: 10,
+			include: [
+				{ model: User, attributes: ["pseudo"] },
+				{
+					model: Like,
+					where: { userId: req.tokenUserId },
+					attributes: ["isLiked"],
+					required: false,
+				},
+			],
 		},
 	})
 		.then((profile) => res.status(201).json(profile))

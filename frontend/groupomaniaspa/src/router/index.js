@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import OneGag from "../views/OneGag.vue";
 import PostGag from "../views/PostGag.vue";
+import Profile from "../views/Profile.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
 		path: "/postgag",
 		name: "PostGag",
 		component: PostGag,
+	},
+	{
+		path: "/user/:userId",
+		name: "Profile",
+		component: Profile,
 	},
 	{
 		path: "/about",

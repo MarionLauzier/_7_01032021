@@ -5,10 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		userId: "2",
+		userId: "10",
 		isAdmin: "",
 		token:
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MTYxNDgxNjEsImV4cCI6MTYxNjE5MTM2MX0.g9NOwGyFNrh1gkFDO9HUXm9eTZJ_k0qxbwN4ftDSlSU",
+			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjE2MTU0ODEyLCJleHAiOjE2MTYxOTgwMTJ9.g-alLwDp2nhExDd3Wc1ecmGtImKQjQC67L1SvAD84kk",
 		loginError: "",
 		gagMod: "",
 	},

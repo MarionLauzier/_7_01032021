@@ -36,10 +36,10 @@ export default {
 	computed: {
 		...mapState(["userId", "isAdmin", "token"]),
 		isLiked() {
-			if (this.gag.Likes == []) {
-				return "";
-			} else {
+			if (this.gag.Likes[0]) {
 				return this.gag.Likes[0].isLiked;
+			} else {
+				return "";
 			}
 		},
 	},
