@@ -36,6 +36,7 @@ exports.updateGag = (req, res, next) => {
 				}`,
 		  }
 		: { ...req.body };
+	console.log(gagObject);
 	const gag = req.object;
 	const oldImage = gag.imageUrl.split("/images/")[1];
 	//mise à jour de l'objet

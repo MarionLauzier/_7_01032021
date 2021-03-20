@@ -1,37 +1,44 @@
 <template>
-	<form v-on:submit.prevent>
-		<h1 v-if="!mod">Poster un gag:</h1>
-		<h1 v-else>Modifier le gag:</h1>
-		<label for="image">Sélectionner une image*</label>
-		<input
-			type="file"
-			id="image"
-			accept="image/*"
-			@change="onFileChange"
-			:required="!mod"
-		/>
-		<div v-if="image">
-			<img :src="image" />
-		</div>
-		<label for="description"> Décrire le gag (max. 255 caractères)* </label>
-		<textarea
-			type="text"
-			maxlength="255"
-			rows="3"
-			id="description"
-			v-model="description"
-			required
-		></textarea>
-		<p>Les champs marqués d'une * sont obligatoires.</p>
-		<button v-if="!mod" type="submit" @click="postGag">Poster le Gag</button>
-		<button v-if="mod" type="submit" @click="modifyGag">Modifier le Gag</button>
-		<p>réponse de l'api: {{ response }}</p>
-	</form>
+	<div>
+		<Navbar />
+		<form v-on:submit.prevent>
+			<h1 v-if="!mod">Poster un gag:</h1>
+			<h1 v-else>Modifier le gag:</h1>
+			<label for="image">Sélectionner une image*</label>
+			<input
+				type="file"
+				id="image"
+				accept="image/*"
+				@change="onFileChange"
+				:required="!mod"
+			/>
+			<div v-if="image">
+				<img :src="image" />
+			</div>
+			<label for="description"> Décrire le gag (max. 255 caractères)* </label>
+			<textarea
+				type="text"
+				maxlength="255"
+				rows="3"
+				id="description"
+				v-model="description"
+				required
+			></textarea>
+			<p>Les champs marqués d'une * sont obligatoires.</p>
+			<button v-if="!mod" type="submit" @click="postGag">Poster le Gag</button>
+			<button v-if="mod" type="submit" @click="modifyGag">
+				Modifier le Gag
+			</button>
+			<p>réponse de l'api: {{ response }}</p>
+		</form>
+	</div>
 </template>
 
 <script>
+import Navbar from "@/components/Navbar.vue";
 export default {
 	name: "PostGag",
+	components: { Navbar },
 	data() {
 		return {
 			description: "",
@@ -85,6 +92,7 @@ export default {
 						this.response = message.error;
 					} else {
 						this.response = message;
+						this.$router.push({ name: "Home" });
 					}
 				})
 				.catch((error) => {
@@ -97,6 +105,10 @@ export default {
 				description: this.description,
 				userId: this.$store.state.userId,
 			};
+			let headers = {
+				Authorization: auth,
+				Accept: "application/json",
+			};
 			let body;
 			if (this.file) {
 				body = new FormData();
@@ -104,14 +116,16 @@ export default {
 				body.append("image", this.file);
 			} else {
 				body = JSON.stringify(gag);
+				headers = {
+					Authorization: auth,
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				};
 			}
 			let url = "http://localhost:3000/api/gag/" + this.gagId;
 			fetch(url, {
 				method: "PUT",
-				headers: {
-					Authorization: auth,
-					Accept: "application/json",
-				},
+				headers: headers,
 				body: body,
 			})
 				.then((res) => {
@@ -126,6 +140,7 @@ export default {
 						this.response = message.error;
 					} else {
 						this.response = message;
+						this.$router.push({ name: "Home" });
 					}
 				})
 				.catch((error) => {

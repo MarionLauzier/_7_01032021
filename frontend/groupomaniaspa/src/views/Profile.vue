@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<Navbar />
 		<h1>Profile de {{ pseudo }}</h1>
 		<p v-if="userId == $route.params.userId">email : {{ email }}</p>
 		<p>{{ pseudo }} - inscrit depuis le {{ since }}</p>
@@ -32,10 +33,12 @@
 
 <script>
 import Gag from "@/components/Gag.vue";
+import Navbar from "@/components/Navbar.vue";
 import { mapState } from "vuex";
 export default {
 	name: "Profile",
 	components: {
+		Navbar,
 		Gag,
 	},
 	data() {

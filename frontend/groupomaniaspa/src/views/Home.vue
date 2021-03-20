@@ -1,5 +1,6 @@
 <template>
 	<div class="home">
+		<Navbar />
 		<img alt="Vue logo" src="../assets/logo.png" />
 		<div v-if="!userId">
 			<p>
@@ -65,11 +66,13 @@
 <script>
 // @ is an alias to /src
 import Gag from "@/components/Gag.vue";
+import Navbar from "@/components/Navbar.vue";
 import { mapState } from "vuex";
 export default {
 	name: "Home",
 	components: {
 		Gag,
+		Navbar,
 	},
 	data() {
 		return {

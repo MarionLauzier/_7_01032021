@@ -1,5 +1,6 @@
 <template>
 	<div :key="componentKey">
+		<Navbar />
 		<Gag
 			:gagId="$route.params.gagId"
 			:gagUserId="gag.userId"
@@ -19,11 +20,13 @@
 <script>
 // @ is an alias to /src
 import Gag from "@/components/Gag.vue";
+import Navbar from "@/components/Navbar.vue";
 import { mapState } from "vuex";
 export default {
 	name: "OneGag",
 	components: {
 		Gag,
+		Navbar,
 	},
 	data() {
 		return {

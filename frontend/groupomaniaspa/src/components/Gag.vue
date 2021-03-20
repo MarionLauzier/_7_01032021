@@ -4,10 +4,10 @@
 			{{ pseudo }}
 		</router-link>
 		<span> - {{ setTimeDiff(createdAt) }}</span>
-		<a
-			><p>{{ description }}</p>
+		<router-link :to="{ name: 'OneGag', params: { gagId: gagId } }">
+			<p>{{ description }}</p>
 			<img :src="imageUrl" :alt="'image gag' + gagId" />
-		</a>
+		</router-link>
 		<Like
 			:likes="likes"
 			:dislikes="dislikes"
@@ -99,7 +99,13 @@ export default {
 					if (message.error) {
 						this.response = message.error;
 					} else {
-						this.$router.push({ name: "Home" });
+						let path = this.$route.path;
+						if (path == "/") {
+							let gag = document.getElementById(id);
+							gag.remove();
+						} else {
+							this.$router.push({ name: "Home" });
+						}
 					}
 				})
 				.catch((error) => {

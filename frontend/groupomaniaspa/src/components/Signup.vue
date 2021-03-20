@@ -1,57 +1,62 @@
 <template>
-	<form v-on:submit.prevent>
-		<p>Veuillez compléter le formulaire suivant</p>
-		<label for="email"> Email* </label>
-		<input
-			id="email"
-			type="email"
-			v-model="email"
-			@input="checkEmail"
-			required
-		/>
-		<p>Utilisez votre email d'entreprise: @groupomania.com</p>
-		<p v-if="emailChecked === false">
-			Cette email n'est pas un email de l'entreprise
-		</p>
-		<label for="pseudo">Pseudo*</label>
-		<input type="text" id="pseudo" v-model="pseudo" required />
-		<label for="password">Mot de Passe*</label>
-		<input
-			type="password"
-			id="password"
-			v-model="password"
-			@input="checkPasswordStrength"
-			required
-		/>
-		<p>
-			Le mot de passe doit contenir entre 8 et 30 caractères, dont au moins 1
-			majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial et aucun espace.
-		</p>
-		<p v-if="passwordStrengthChecked === false">
-			Le mot de passe choisi n'est pas suffisamment fort!
-		</p>
-		<label for="password2">Confirmez le mot de passe*</label
-		><input
-			type="password"
-			id="password2"
-			v-model="password2"
-			@input="checkPasswordDiff"
-			required
-		/>
-		<p v-if="passwordDiffChecked === false">
-			Ce mot de passe n'est pas identique au précédent!
-		</p>
-		<label for="departement">Département de l'entreprise</label
-		><input type="text" id="departement" v-model="departement" />
-		<p>Les champs marqués d'une * sont obligatoires.</p>
-		<button type="submit" @click="signup">S'inscrire</button>
-		<p>réponse de l'api: {{ response }}</p>
-	</form>
+	<div>
+		<Navbar />
+		<form v-on:submit.prevent>
+			<p>Veuillez compléter le formulaire suivant</p>
+			<label for="email"> Email* </label>
+			<input
+				id="email"
+				type="email"
+				v-model="email"
+				@input="checkEmail"
+				required
+			/>
+			<p>Utilisez votre email d'entreprise: @groupomania.com</p>
+			<p v-if="emailChecked === false">
+				Cette email n'est pas un email de l'entreprise
+			</p>
+			<label for="pseudo">Pseudo*</label>
+			<input type="text" id="pseudo" v-model="pseudo" required />
+			<label for="password">Mot de Passe*</label>
+			<input
+				type="password"
+				id="password"
+				v-model="password"
+				@input="checkPasswordStrength"
+				required
+			/>
+			<p>
+				Le mot de passe doit contenir entre 8 et 30 caractères, dont au moins 1
+				majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial et aucun espace.
+			</p>
+			<p v-if="passwordStrengthChecked === false">
+				Le mot de passe choisi n'est pas suffisamment fort!
+			</p>
+			<label for="password2">Confirmez le mot de passe*</label
+			><input
+				type="password"
+				id="password2"
+				v-model="password2"
+				@input="checkPasswordDiff"
+				required
+			/>
+			<p v-if="passwordDiffChecked === false">
+				Ce mot de passe n'est pas identique au précédent!
+			</p>
+			<label for="departement">Département de l'entreprise</label
+			><input type="text" id="departement" v-model="departement" />
+			<p>Les champs marqués d'une * sont obligatoires.</p>
+			<button type="submit" @click="signup">S'inscrire</button>
+			<p>réponse de l'api: {{ response }}</p>
+		</form>
+	</div>
 </template>
 
 <script>
+import Navbar from "@/components/Navbar.vue";
 export default {
 	name: "Signup",
+	components: { Navbar },
 	data() {
 		return {
 			email: "",
@@ -98,7 +103,6 @@ export default {
 				.then(() => {
 					this.$store.dispatch("login", [this.email, this.password]);
 				});
-			//.then login et redirection
 		},
 		checkEmail() {
 			if (this.email.endsWith("@groupomania.com")) {
