@@ -1,14 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import router from "../router/index.js";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		userId: "10",
+		userId: "",
 		isAdmin: "",
-		token:
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjE2MTU0ODEyLCJleHAiOjE2MTYxOTgwMTJ9.g-alLwDp2nhExDd3Wc1ecmGtImKQjQC67L1SvAD84kk",
+		token: "",
 		loginError: "",
 		gagMod: "",
 	},
@@ -51,6 +51,7 @@ export default new Vuex.Store({
 						context.commit("SET_LOGINERROR", message.error);
 					} else {
 						context.commit("SET_USER", message);
+						router.push({ name: "Home" });
 					}
 				})
 				.catch((error) => {

@@ -4,6 +4,8 @@ import Home from "../views/Home.vue";
 import OneGag from "../views/OneGag.vue";
 import PostGag from "../views/PostGag.vue";
 import Profile from "../views/Profile.vue";
+import Signup from "../components/Signup.vue";
+import Login from "../components/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -12,11 +14,6 @@ const routes = [
 		path: "/",
 		name: "Home",
 		component: Home,
-	},
-	{
-		path: "/:gagId",
-		name: "OneGag",
-		component: OneGag,
 	},
 	{
 		path: "/postgag",
@@ -29,13 +26,19 @@ const routes = [
 		component: Profile,
 	},
 	{
-		path: "/about",
-		name: "About",
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
-		component: () =>
-			import(/* webpackChunkName: "about" */ "../views/About.vue"),
+		path: "/signup",
+		name: "Signup",
+		component: Signup,
+	},
+	{
+		path: "/login",
+		name: "Login",
+		component: Login,
+	},
+	{
+		path: "/:gagId",
+		name: "OneGag",
+		component: OneGag,
 	},
 ];
 
