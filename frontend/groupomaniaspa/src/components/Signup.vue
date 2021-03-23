@@ -2,7 +2,10 @@
 	<div>
 		<Navbar />
 		<form v-on:submit.prevent>
-			<p>Veuillez compléter le formulaire suivant</p>
+			<div>
+				<img alt="Groupomania logo" src="../assets/icon-black.png" />
+				<p>Veuillez compléter le formulaire suivant :</p>
+			</div>
 			<label for="email"> Email* </label>
 			<input
 				id="email"
@@ -11,9 +14,9 @@
 				@input="checkEmail"
 				required
 			/>
-			<p>Utilisez votre email d'entreprise: @groupomania.com</p>
-			<p v-if="emailChecked === false">
-				Cette email n'est pas un email de l'entreprise
+			<p class="info">Utilisez votre email d'entreprise: @groupomania.com</p>
+			<p v-if="emailChecked === false" class="alert">
+				Cette email n'est pas un email de l'entreprise!
 			</p>
 			<label for="pseudo">Pseudo*</label>
 			<input type="text" id="pseudo" v-model="pseudo" required />
@@ -25,11 +28,11 @@
 				@input="checkPasswordStrength"
 				required
 			/>
-			<p>
+			<p class="info">
 				Le mot de passe doit contenir entre 8 et 30 caractères, dont au moins 1
 				majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial et aucun espace.
 			</p>
-			<p v-if="passwordStrengthChecked === false">
+			<p v-if="passwordStrengthChecked === false" class="alert">
 				Le mot de passe choisi n'est pas suffisamment fort!
 			</p>
 			<label for="password2">Confirmez le mot de passe*</label
@@ -40,14 +43,20 @@
 				@input="checkPasswordDiff"
 				required
 			/>
-			<p v-if="passwordDiffChecked === false">
+			<p v-if="passwordDiffChecked === false" class="alert">
 				Ce mot de passe n'est pas identique au précédent!
 			</p>
 			<label for="departement">Département de l'entreprise</label
 			><input type="text" id="departement" v-model="departement" />
-			<p>Les champs marqués d'une * sont obligatoires.</p>
-			<button type="submit" @click="signup">S'inscrire</button>
-			<p>réponse de l'api: {{ response }}</p>
+			<p class="info">Les champs marqués d'une * sont obligatoires.</p>
+			<button
+				type="submit"
+				@click="signup"
+				:disabled="!email || !password || !pseudo || !password2"
+			>
+				S'inscrire
+			</button>
+			<p v-show="response">{{ response }}</p>
 		</form>
 	</div>
 </template>
@@ -144,4 +153,9 @@ export default {
 </script>
 Vérifier mot de passe, et égalité avec mot de passe 2, vérifier email
 @groupomania
-<style></style>
+<style lang="scss">
+.alert {
+	color: #dd3e5b;
+	margin-top: 0;
+}
+</style>

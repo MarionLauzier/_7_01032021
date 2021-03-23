@@ -1,12 +1,15 @@
 <template>
-	<div :key="componentKey">
-		<router-link :to="{ name: 'Profile', params: { userId: gagUserId } }">
-			{{ pseudo }}
-		</router-link>
-		<span> - {{ setTimeDiff(createdAt) }}</span>
+	<article :key="componentKey" class="gag">
+		<div class="gag__header">
+			<img class="logo" alt="Groupomania logo" src="../assets/icon-black.png" />
+			<router-link :to="{ name: 'Profile', params: { userId: gagUserId } }">{{
+				pseudo
+			}}</router-link>
+			<span> - publié il y a {{ setTimeDiff(createdAt) }}</span>
+		</div>
 		<router-link :to="{ name: 'OneGag', params: { gagId: gagId } }">
-			<p>{{ description }}</p>
-			<img :src="imageUrl" :alt="'image gag' + gagId" />
+			<p class="gag__description">{{ description }}</p>
+			<img :src="imageUrl" :alt="'image gag' + gagId" class="gag__image" />
 		</router-link>
 		<Like
 			:likes="likes"
@@ -31,7 +34,7 @@
 		/>
 		<PostComment :gagId="gagId" @reload-comments="incrKey" />
 		<p>{{ response }} la réponse</p>
-	</div>
+	</article>
 </template>
 
 <script>
@@ -129,4 +132,39 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.gag {
+	background-color: white;
+	width: 40%;
+	margin: 2rem auto;
+	border-radius: 20px;
+	padding: 2rem 0;
+	box-sizing: border-box;
+	box-shadow: 0px 0px 10px #192b48;
+	text-align: left;
+	&__header {
+		border-bottom: 1px solid #192b48;
+		box-sizing: border-box;
+		padding: 0 3rem 0.5rem 3rem;
+		.logo {
+			width: 25px;
+			vertical-align: middle;
+			margin: 0 0.25rem;
+		}
+		a {
+			color: #192b48;
+			font-weight: bold;
+		}
+	}
+	&__description {
+		padding: 0 3rem;
+		text-align: center;
+		text-decoration: none;
+	}
+	&__image {
+		max-height: 50vh;
+		min-height: 25vh;
+		max-width: 100%;
+	}
+}
+</style>

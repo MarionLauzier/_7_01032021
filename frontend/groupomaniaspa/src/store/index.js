@@ -6,9 +6,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		userId: "",
+		userId: "2",
 		isAdmin: "",
-		token: "",
+		token:
+			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MTY0Nzg5NzAsImV4cCI6MTYxNjUyMjE3MH0.Ucc7EFC7QXXh6e2xDBsTXKbqkc4HfauxB23k8bD2sWs",
 		loginError: "",
 		gagMod: "",
 	},

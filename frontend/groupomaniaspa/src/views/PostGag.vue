@@ -2,18 +2,24 @@
 	<div>
 		<Navbar />
 		<form v-on:submit.prevent>
-			<h1 v-if="!mod">Poster un gag:</h1>
+			<h1 v-if="!mod">
+				<img alt="Groupomania logo" src="../assets/icon-black.png" /> Poster un
+				gag:
+			</h1>
 			<h1 v-else>Modifier le gag:</h1>
-			<label for="image">Sélectionner une image*</label>
+			<label>Sélectionner une image*</label>
+			<label for="image" class="label-file" tabindex="0">Parcourir...</label>
 			<input
 				type="file"
 				id="image"
+				class="input-file"
 				accept="image/*"
 				@change="onFileChange"
 				:required="!mod"
 			/>
-			<div v-if="image">
+			<div v-if="image" class="preview">
 				<img :src="image" />
+				<p>{{ file.name }}</p>
 			</div>
 			<label for="description"> Décrire le gag (max. 255 caractères)* </label>
 			<textarea
@@ -24,12 +30,24 @@
 				v-model="description"
 				required
 			></textarea>
-			<p>Les champs marqués d'une * sont obligatoires.</p>
-			<button v-if="!mod" type="submit" @click="postGag">Poster le Gag</button>
-			<button v-if="mod" type="submit" @click="modifyGag">
+			<p class="info">Les champs marqués d'un * sont obligatoires.</p>
+			<button
+				v-if="!mod"
+				type="submit"
+				@click="postGag"
+				:disabled="!description || !file"
+			>
+				Poster le Gag
+			</button>
+			<button
+				v-if="mod"
+				type="submit"
+				@click="modifyGag"
+				:disabled="!description"
+			>
 				Modifier le Gag
 			</button>
-			<p>réponse de l'api: {{ response }}</p>
+			<p v-show="response">{{ response }}</p>
 		</form>
 	</div>
 </template>
@@ -157,3 +175,42 @@ export default {
 	},
 };
 </script>
+
+<style lang="scss">
+h1 img {
+	width: 45px;
+	vertical-align: middle;
+}
+.label-file {
+	cursor: pointer;
+	color: #c32240;
+	background: #cde9ff;
+	padding: 0.2rem 0.5rem;
+	border-radius: 5px;
+	box-shadow: 1px 1px 4px darken(#b3deff, 15%);
+	font-weight: bold;
+	transition: transform 150ms;
+	margin-top: 0.2rem;
+}
+.label-file:hover {
+	transform: scale(1.05);
+}
+.input-file {
+	display: none;
+}
+.preview {
+	display: flex;
+	flex-direction: column;
+}
+.preview img {
+	width: 30%;
+	margin: auto;
+}
+textarea {
+	border: 1px solid #192b48;
+	outline: none;
+	&:focus {
+		box-shadow: 0 0 5px darken(#b3deff, 30%);
+	}
+}
+</style>

@@ -1,8 +1,9 @@
 <template>
 	<div class="home">
 		<Navbar />
-		<img alt="Vue logo" src="../assets/logo.png" />
-		<div v-if="!userId">
+		<div v-if="!userId" id="notconnected">
+			<img alt="logo" src="../assets/icon-above-font.png" />
+			<h1>Social Network</h1>
 			<p>
 				Veuillez <router-link to="/signup">vous inscrire</router-link> ou
 				<router-link to="/login">vous connecter</router-link> pour consulter le
@@ -143,3 +144,32 @@ export default {
 	},
 };
 </script>
+
+<style lang="scss">
+#home {
+	min-height: 100%;
+}
+
+#notconnected {
+	background: white;
+	width: 60%;
+	margin: 5rem auto 5rem auto;
+	padding: 1rem;
+	h1 {
+		color: red;
+		margin-top: -10px;
+		font-family: Arial;
+	}
+	img {
+		width: 70%;
+	}
+	p {
+		color: #192b48;
+		a {
+			color: #192b48;
+			font-weight: bold;
+			//text-decoration: none;
+		}
+	}
+}
+</style>

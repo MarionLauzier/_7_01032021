@@ -5,24 +5,29 @@
 </template>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Blinker:wght@300;400;600&display=swap");
 #app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
+	box-sizing: border-box;
+	font-family: "Blinker", Arial, sans-serif;
+	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
-	color: #2c3e50;
-}
+	color: #192b48;
+	background: linear-gradient(
+			rgba(150, 150, 200, 0.7),
+			rgba(150, 150, 200, 0.7)
+		),
+		url("./assets/bg.jpg");
 
-#nav {
-	padding: 30px;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 
-	a {
-		font-weight: bold;
-		color: #2c3e50;
-
-		&.router-link-exact-active {
-			color: #42b983;
-		}
-	}
+	background-size: cover;
+	//background-blend-mode: multiply;
+	width: 100%;
 }
 </style>
