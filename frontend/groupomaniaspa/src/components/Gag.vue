@@ -17,23 +17,25 @@
 			:isLiked="isLiked"
 			:gagId="gagId"
 		/>
-		<button type="button" v-if="gagUserId == userId" @click="modifyGag">
-			Modifier
+		<button
+			class="btn btn--modify"
+			type="button"
+			v-if="gagUserId == userId"
+			@click="modifyGag"
+		>
+			<i class="fas fa-edit"></i> Modifier
 		</button>
 		<button
+			class="btn btn--delete"
 			type="button"
 			v-if="gagUserId == userId || isAdmin"
 			@click="deleteGag(gagId)"
 		>
-			Supprimer
+			<i class="fas fa-trash"></i> Supprimer
 		</button>
-		<Comment
-			:gagId="gagId"
-			:nbComments="nbComments"
-			:showComments="showComments"
-		/>
+		<Comment :gagId="gagId" :nbComments="nbComs" :showComments="showComments" />
 		<PostComment :gagId="gagId" @reload-comments="incrKey" />
-		<p>{{ response }} la réponse</p>
+		<p class="gag__resp" v-show="resp">{{ response }} la réponse</p>
 	</article>
 </template>
 
@@ -62,6 +64,7 @@ export default {
 		return {
 			componentKey: 0,
 			response: "",
+			nbComs: this.nbComments,
 		};
 	},
 	computed: { ...mapState(["userId", "isAdmin", "token"]) },
@@ -83,7 +86,7 @@ export default {
 			} else if (diff >= 1000 * 60 * 60) {
 				let diffh = Math.round(diff / (1000 * 60 * 60));
 				return diffh + " heure(s)";
-			} else if (diff >= 1000 * 60) {
+			} else {
 				let diffm = Math.round(diff / (1000 * 60));
 				return diffm + " minute(s)";
 			}
@@ -116,8 +119,8 @@ export default {
 				});
 		},
 		incrKey() {
-			console.log("hello");
 			this.componentKey += 1;
+			this.nbComs += 1;
 		},
 		modifyGag() {
 			const gag = {
@@ -141,24 +144,25 @@ export default {
 	padding: 2rem 0;
 	box-sizing: border-box;
 	box-shadow: 0px 0px 10px #192b48;
-	text-align: left;
+	text-align: center;
 	&__header {
+		text-align: left;
 		border-bottom: 1px solid #192b48;
 		box-sizing: border-box;
 		padding: 0 3rem 0.5rem 3rem;
-		.logo {
-			width: 25px;
-			vertical-align: middle;
-			margin: 0 0.25rem;
-		}
+
 		a {
 			color: #192b48;
 			font-weight: bold;
 		}
 	}
+	& > a {
+		text-decoration: none;
+	}
 	&__description {
 		padding: 0 3rem;
 		text-align: center;
+		color: #192b48;
 		text-decoration: none;
 	}
 	&__image {
@@ -166,5 +170,36 @@ export default {
 		min-height: 25vh;
 		max-width: 100%;
 	}
+}
+.btn {
+	padding: 0.5rem;
+	border-radius: 5px;
+	font-weight: bold;
+	transition: transform 150ms;
+	margin: 0.5rem;
+	border: none;
+	font-family: inherit;
+	&:hover {
+		transform: scale(1.05);
+	}
+}
+
+.btn--modify {
+	color: white;
+	background: lighten(#192b48, 10%);
+	box-shadow: 1px 1px 4px darken(#192b48, 15%);
+}
+.btn--delete {
+	color: white;
+	background: #c32240;
+	box-shadow: 1px 1px 4px darken(#c32240, 15%);
+}
+.logo {
+	width: 25px;
+	vertical-align: middle;
+	margin: 0 0.25rem;
+}
+.gag__resp {
+	margin: 0.2rem 0;
 }
 </style>

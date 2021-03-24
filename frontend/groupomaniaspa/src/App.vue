@@ -25,9 +25,7 @@
 	flex-direction: column;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-
 	background-size: cover;
-	//background-blend-mode: multiply;
 	width: 100%;
 }
 </style>

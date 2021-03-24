@@ -1,17 +1,22 @@
 <template>
-	<div>
-		<label for="content"> Votre commentaire (max. 255 caractères): </label>
+	<div class="postcomment">
+		<label for="content">
+			<img class="logo" alt="Groupomania logo" src="../assets/icon-black.png" />
+			Votre commentaire (max. 255 caractères):
+		</label>
+
 		<textarea
 			type="text"
 			maxlength="255"
-			rows="3"
+			rows="2"
 			id="content"
 			v-model="content"
 		></textarea>
 		<button type="button" @click="postComment" :disabled="!content">
-			<i class="fas fa-comment-alt"></i>Commenter
+			<i class="fas fa-comment-alt"></i> Commenter
 		</button>
-		<p>{{ response }} la réponse</p>
+
+		<p>{{ response }}</p>
 	</div>
 </template>
 
@@ -59,4 +64,36 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.postcomment {
+	padding: 1rem 2rem 0rem 2rem;
+	textarea {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0.2rem;
+	}
+	button {
+		margin: 0.5rem auto 0 auto;
+		padding: 0.3rem 0.5rem;
+		color: #192b48;
+		border-color: #192b48;
+		border-radius: 5px;
+		background-color: #ffd7d7;
+		font-size: 1rem;
+		font-weight: 600;
+		font-family: "Blinker", Arial, sans-serif;
+		transition: transform 150ms;
+
+		&:disabled {
+			opacity: 0.5;
+		}
+		&:hover:enabled,
+		:focus:enabled {
+			transform: scale(1.05);
+		}
+	}
+	p {
+		margin: 0.2rem;
+	}
+}
+</style>

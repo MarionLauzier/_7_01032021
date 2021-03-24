@@ -1,40 +1,43 @@
 <template>
 	<div>
-		<button
-			type="button"
-			v-show="isLikedByUser === true"
-			class="like"
-			@click="postLike(0)"
-		>
-			<i class="fas fa-arrow-alt-circle-up"></i>J'aime
-		</button>
-		<button
-			type="button"
-			@click="postLike(1)"
-			v-show="!isLikedByUser"
-			:disabled="isLikedByUser === false"
-		>
-			<i class="fas fa-arrow-alt-circle-up"></i>J'aime
-		</button>
-		<p>{{ totalLikes }} J'aime</p>
-		<button
-			type="button"
-			class="dislike"
-			v-show="isLikedByUser === false"
-			@click="postLike(0)"
-		>
-			<i class="fas fa-arrow-alt-circle-down"></i>Je n'aime pas
-		</button>
-		<button
-			type="button"
-			v-show="isLikedByUser !== false"
-			:disabled="isLikedByUser === true"
-			@click="postLike(-1)"
-		>
-			<i class="fas fa-arrow-alt-circle-down"></i>Je n'aime pas
-		</button>
-		<p>{{ totalDislikes }} Je n'aime pas</p>
-		<p>{{ response }} la réponse</p>
+		<div class="like">
+			<button
+				type="button"
+				v-show="isLikedByUser === true"
+				class="like--true"
+				@click="postLike(0)"
+			>
+				<i class="fas fa-arrow-alt-circle-up"></i> <span> J'aime</span>
+			</button>
+			<button
+				type="button"
+				@click="postLike(1)"
+				v-show="!isLikedByUser"
+				:disabled="isLikedByUser === false"
+			>
+				<i class="fas fa-arrow-alt-circle-up"></i>
+				<span> J'aime</span>
+			</button>
+			<p>{{ totalLikes }} J'aime</p>
+			<button
+				type="button"
+				class="like--false"
+				v-show="isLikedByUser === false"
+				@click="postLike(0)"
+			>
+				<i class="fas fa-arrow-alt-circle-down"></i> Je n'aime pas
+			</button>
+			<button
+				type="button"
+				v-show="isLikedByUser !== false"
+				:disabled="isLikedByUser === true"
+				@click="postLike(-1)"
+			>
+				<i class="fas fa-arrow-alt-circle-down"></i> Je n'aime pas
+			</button>
+			<p>{{ totalDislikes }} Je n'aime pas</p>
+		</div>
+		<p class="like__response" v-show="response">{{ response }}</p>
 	</div>
 </template>
 
@@ -95,11 +98,63 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .like {
-	color: green;
-}
-.dislike {
-	color: red;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 0 2rem 0 3rem;
+	align-items: center;
+	button {
+		border-radius: 10px;
+		font-family: "Blinker", Arial, sans-serif;
+		font-size: 1rem;
+		font-weight: 600;
+		padding: 0rem 0.5rem 0rem 0;
+		color: #192b48;
+		border: 3px solid #192b48;
+		background-color: white;
+		width: 120px;
+		position: relative;
+		text-align: left;
+		transition: transform 150ms;
+		cursor: pointer;
+		&:disabled {
+			opacity: 0.5;
+		}
+		&:hover:enabled {
+			transform: scale(1.05);
+		}
+		i {
+			font-size: 2rem;
+			vertical-align: middle;
+			margin-left: -1rem;
+			background-color: white;
+			text-align: left;
+		}
+		span {
+			position: relative;
+			left: 20px;
+		}
+	}
+	p {
+		margin: 0;
+		padding: 0 0 0 5px;
+		flex: 1;
+		white-space: nowrap;
+		text-align: left;
+	}
+	.like--true {
+		color: #2a9e82;
+		border-color: #2a9e82;
+	}
+	.like--false {
+		color: #c32240;
+		border-color: #c32240;
+	}
+	&__response {
+		text-align: center;
+		margin: 0.5rem 2rem;
+	}
 }
 </style>

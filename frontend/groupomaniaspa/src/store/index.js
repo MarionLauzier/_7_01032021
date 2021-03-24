@@ -9,7 +9,7 @@ export default new Vuex.Store({
 		userId: "2",
 		isAdmin: "",
 		token:
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MTY0Nzg5NzAsImV4cCI6MTYxNjUyMjE3MH0.Ucc7EFC7QXXh6e2xDBsTXKbqkc4HfauxB23k8bD2sWs",
+			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MTY1NzE1OTksImV4cCI6MTYxNjYxNDc5OX0.gUkmJ2rIiwbc-xjhuVCbhbG-jgxH2AFzq_dZuAJuQfM",
 		loginError: "",
 		gagMod: "",
 	},

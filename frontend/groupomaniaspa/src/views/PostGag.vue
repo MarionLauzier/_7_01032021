@@ -209,6 +209,8 @@ h1 img {
 textarea {
 	border: 1px solid #192b48;
 	outline: none;
+	font-family: "Blinker", Arial, sans-serif;
+	color: #192b48;
 	&:focus {
 		box-shadow: 0 0 5px darken(#b3deff, 30%);
 	}
