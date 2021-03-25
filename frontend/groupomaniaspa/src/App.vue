@@ -27,5 +27,13 @@
 	background-attachment: fixed;
 	background-size: cover;
 	width: 100%;
+	button {
+		transition: transform 150ms;
+		&:focus:enabled {
+			outline: none;
+			box-shadow: 0 0 5px darken(#b3deff, 30%);
+			transform: scale(1.05);
+		}
+	}
 }
 </style>

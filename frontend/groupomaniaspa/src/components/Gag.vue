@@ -35,7 +35,7 @@
 		</button>
 		<Comment :gagId="gagId" :nbComments="nbComs" :showComments="showComments" />
 		<PostComment :gagId="gagId" @reload-comments="incrKey" />
-		<p class="gag__resp" v-show="resp">{{ response }} la réponse</p>
+		<p class="gag__resp" v-show="response">{{ response }}</p>
 	</article>
 </template>
 
@@ -154,6 +154,13 @@ export default {
 		a {
 			color: #192b48;
 			font-weight: bold;
+			display: inline-block;
+			transition: transform 150ms;
+			&:hover,
+			&:focus {
+				transform: scale(1.05);
+				outline: none;
+			}
 		}
 	}
 	& > a {

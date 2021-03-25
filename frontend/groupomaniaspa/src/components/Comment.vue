@@ -88,7 +88,6 @@ export default {
 	computed: { ...mapState(["userId", "isAdmin", "token"]) },
 	methods: {
 		setTimeDiff(date) {
-			//let time = Date.parse(date);
 			let time = new Date(date);
 			let diff = Date.now() - time;
 			if (diff > 1000 * 60 * 60 * 24 * 30) {
@@ -259,6 +258,10 @@ export default {
 			margin: 0;
 			box-sizing: border-box;
 			color: #192b48;
+			&:focus {
+				outline: none;
+				box-shadow: 0 0 5px darken(#b3deff, 30%);
+			}
 		}
 		button {
 			box-sizing: border-box;

@@ -101,7 +101,7 @@ form {
 			opacity: 0.5;
 		}
 		&:hover:enabled,
-		:focus:enabled {
+		&:focus:enabled {
 			transform: scale(1.05);
 		}
 	}

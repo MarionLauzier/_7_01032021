@@ -1,18 +1,28 @@
 <template>
 	<div>
 		<Navbar />
-		<h1>Profile de {{ pseudo }}</h1>
-		<p v-if="userId == $route.params.userId">email : {{ email }}</p>
-		<p>{{ pseudo }} - inscrit depuis le {{ since }}</p>
-		<p>département : {{ departement }}</p>
-		<button
-			type="button"
-			v-if="userId == $route.params.userId"
-			@click="unsuscribe"
-		>
-			Se désinscrire
-		</button>
-		<p v-if="gags[0]">Les gags les plus récents de {{ pseudo }}:</p>
+		<section id="idcard">
+			<h1>Profile de {{ pseudo }}</h1>
+
+			<p>
+				<img
+					class="logo"
+					alt="Groupomania logo"
+					src="../assets/icon-black.png"
+				/>{{ pseudo }} - inscrit depuis le {{ since }}
+			</p>
+			<p v-if="userId == $route.params.userId">email : {{ email }}</p>
+			<p>département : {{ departement }}</p>
+			<button
+				class="btn btn--modify"
+				type="button"
+				v-if="userId == $route.params.userId"
+				@click="unsuscribe"
+			>
+				Se désinscrire
+			</button>
+		</section>
+		<h2 v-if="gags[0]">Les gags les plus récents de {{ pseudo }}:</h2>
 		<div v-for="gag in gags" :key="gag._id" :id="gag._id">
 			<Gag
 				:gagId="gag._id"
@@ -123,3 +133,23 @@ export default {
 	},
 };
 </script>
+<style lang="scss">
+#idcard {
+	background: #cde9ff;
+	width: 20%;
+	margin: 1rem auto;
+	padding: 1rem;
+	border-radius: 20px;
+	box-shadow: 0 0 10px darken(#cde9ff, 20%);
+	h1 {
+		margin-top: 0;
+	}
+	button {
+		font-size: 1rem;
+		margin: 0;
+	}
+}
+h2 {
+	color: white;
+}
+</style>

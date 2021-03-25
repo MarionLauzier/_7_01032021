@@ -11,32 +11,38 @@
 			</p>
 		</div>
 
-		<div v-else>
+		<div v-else id="connected">
 			<form v-on:submit.prevent>
 				<label for="research">
 					Trouvez vos gags :
 				</label>
 				<div>
-					<input type="search" id="research" v-model="search" />
+					<input
+						type="search"
+						id="research"
+						v-model="search"
+						placeholder="description"
+					/>
 					<button type="submit" @click="getGags">
 						<span class="fas fa-search"></span> Rechercher
 					</button>
-					<div>
-						<button type="button" @click="sortQuery('recent')">
-							<i class="fas fa-calendar-alt"></i> Les + récents
-						</button>
-						<button type="button" @click="sortQuery('popular')">
-							<i class="fas fa-thumbs-up"></i> Les + populaires
-						</button>
-						<button type="button" @click="sortQuery('unpopular')">
-							<i class="fas fa-thumbs-down"></i> Les - populaires
-						</button>
-						<button type="button" @click="sortQuery('comment')">
-							<i class="fas fa-comments"></i>Les + commentés
-						</button>
-					</div>
-					<p>{{ response }}</p>
 				</div>
+				<p>Filtrer par:</p>
+				<div class="filters">
+					<button type="button" @click="sortQuery('recent')">
+						<i class="fas fa-calendar-alt"></i> Les + récents
+					</button>
+					<button type="button" @click="sortQuery('popular')">
+						<i class="fas fa-thumbs-up"></i> Les + populaires
+					</button>
+					<button type="button" @click="sortQuery('unpopular')">
+						<i class="fas fa-thumbs-down"></i> Les - populaires
+					</button>
+					<button type="button" @click="sortQuery('comment')">
+						<i class="fas fa-comments"></i> Les + commentés
+					</button>
+				</div>
+				<p>{{ response }}</p>
 			</form>
 			<div v-for="gag in gags" :key="gag._id" :id="gag._id">
 				<Gag
@@ -170,6 +176,66 @@ export default {
 			font-weight: bold;
 			//text-decoration: none;
 		}
+	}
+}
+#connected {
+	form {
+		width: 60%;
+		label {
+			margin-top: 0;
+			font-weight: 600;
+			font-size: 1.5rem;
+		}
+		& > div {
+			margin: 1rem;
+		}
+		& > p {
+			text-align: left;
+			margin: 0;
+		}
+	}
+	input[type="search"] {
+		width: 100%;
+		padding: 0 0.1rem 0 0.1rem;
+		border: solid 2px #192b48;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		height: 30px;
+		margin: 0;
+		font-size: 1rem;
+		box-sizing: border-box;
+		color: #192b48;
+		font-family: "Blinker", Arial, sans-serif;
+		&:focus {
+			outline: none;
+			box-shadow: 0 0 5px darken(#b3deff, 30%);
+		}
+	}
+	button[type="submit"] {
+		box-sizing: border-box;
+		font-size: 1rem;
+		font-weight: 600;
+		margin: 0px 0 0 -2px;
+		padding: 0 0.2rem;
+		color: #192b48;
+		border-color: #192b48;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		background-color: #ffd7d7;
+		font-family: "Blinker", Arial, sans-serif;
+		transition: 150ms;
+		height: 30px;
+		white-space: nowrap;
+	}
+
+	.filters button {
+		color: #c32240;
+		background: #cde9ff;
+		border: none;
+		box-shadow: 1px 1px 4px darken(#b3deff, 15%);
+		margin-top: 0;
 	}
 }
 </style>

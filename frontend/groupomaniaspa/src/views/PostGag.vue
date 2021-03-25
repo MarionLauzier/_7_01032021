@@ -191,8 +191,13 @@ h1 img {
 	font-weight: bold;
 	transition: transform 150ms;
 	margin-top: 0.2rem;
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 5px darken(#b3deff, 30%);
+	}
 }
-.label-file:hover {
+.label-file:hover,
+.label-file:focus {
 	transform: scale(1.05);
 }
 .input-file {

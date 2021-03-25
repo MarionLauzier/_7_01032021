@@ -3,7 +3,7 @@
 		<img alt="Groupomania logo" src="../assets/icon-left-font.png" />
 		<nav>
 			<router-link to="/" v-if="userId">
-				<i class="fas fa-hotel"></i> Home</router-link
+				<i class="fas fa-hotel"></i> Accueil</router-link
 			>
 			<router-link to="/signup" v-if="!userId">
 				<i class="fas fa-address-card"></i> S'inscrire</router-link
