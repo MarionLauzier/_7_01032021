@@ -1,8 +1,8 @@
-const { createPool } = require("mysql2/promise");
 const Gag = require("../models/gag");
 const Comment = require("../models/comment");
 
 module.exports = (req, res, next) => {
+	//for updates or deleting of comments or gags, the object is found first based on the url params and the userid of the object is checked against the userid of the token to allow to get to the controller.
 	let table, param;
 	if (req.path.includes("comment")) {
 		table = Comment;
@@ -16,8 +16,10 @@ module.exports = (req, res, next) => {
 		.then((object) => {
 			if (
 				object.userId == req.tokenUserId ||
+				// an exception is allowed in case of a delete for the users with admin rights
 				(req.method == "DELETE" && req.tokenIsAdmin)
 			) {
+				//the object is directly passed on the controller to avoid a new search in the database
 				req.object = object;
 				next();
 			} else {

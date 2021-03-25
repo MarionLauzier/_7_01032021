@@ -5,6 +5,7 @@ const Comment = require("../models/comment");
 const Sequelize = require("sequelize");
 const fs = require("fs");
 
+// create a new gag object and save it to the database if the userId in the body is valid
 exports.addGag = (req, res, next) => {
 	if (req.UserIsNotValid) {
 		return res.status(401).json({ error: req.UserIsNotValid });
@@ -24,10 +25,12 @@ exports.addGag = (req, res, next) => {
 		.catch((error) => res.status(400).json({ error }));
 };
 
+// modify a gag and save the new data
 exports.updateGag = (req, res, next) => {
 	if (req.UserIsNotValid) {
 		return res.status(401).json({ error: req.UserIsNotValid });
 	}
+	//creation of the new object whether a new image file has been provided or not
 	const gagObject = req.file
 		? {
 				...JSON.parse(req.body.gag),
@@ -36,8 +39,8 @@ exports.updateGag = (req, res, next) => {
 				}`,
 		  }
 		: { ...req.body };
-	console.log(gagObject);
 	const gag = req.object;
+	//recupération du nom de l'ancienne image
 	const oldImage = gag.imageUrl.split("/images/")[1];
 	//mise à jour de l'objet
 	gag
@@ -54,6 +57,7 @@ exports.updateGag = (req, res, next) => {
 		.catch((error) => res.status(400).json({ error }));
 };
 
+//delete a gag from the database (image file is also deleted by Gag model hook function)
 exports.deleteGag = (req, res, next) => {
 	const gag = req.object;
 	gag
@@ -62,12 +66,15 @@ exports.deleteGag = (req, res, next) => {
 		.catch((error) => res.status(400).json({ error }));
 };
 
+//manage addition and removal of likes and dislikes
 exports.likeGag = (req, res, next) => {
+	// case of a new like or dislike
 	if (Math.abs(req.body.like) == 1) {
 		let opinion = true;
 		if (req.body.like == -1) {
 			opinion = false;
 		}
+		// addition of the opinion in the database in case it does not already exists for the given user and the given gag
 		Like.findOrCreate({
 			where: { userId: req.body.userId, gagId: req.params.id },
 			defaults: { isLiked: opinion },
@@ -83,7 +90,9 @@ exports.likeGag = (req, res, next) => {
 				}
 			})
 			.catch((error) => res.status(500).json({ error }));
+		//case of cancelling an opinion
 	} else if (req.body.like == 0) {
+		//remove the Like from the database
 		Like.destroy({
 			where: { userId: req.body.userId, gagId: req.params.id },
 			individualHooks: true,
@@ -96,7 +105,7 @@ exports.likeGag = (req, res, next) => {
 		return res.status(400).json({ error: "Invalid resquest!" });
 	}
 };
-// récupération d'un gag ainsi que tous les commentaires associées avec le pseudo  de l'auteur.
+// récupération d'un gag avec le pseudo  de l'auteur et si l'auteur a déjà émis une opinion sur le gag
 exports.getTheGag = (req, res, next) => {
 	Gag.findByPk(req.params.id, {
 		include: [
@@ -107,19 +116,12 @@ exports.getTheGag = (req, res, next) => {
 				attributes: ["isLiked"],
 				required: false,
 			},
-			// {
-			// 	model: Comment,
-			// 	attributes: ["content", "createdAt"],
-			// 	required: false,
-			// 	include: { model: User, attributes: ["pseudo", "_id"] },
-			// 	order: [["createdAt", "DESC"]],
-			// },
 		],
 	})
 		.then((gag) => res.status(200).json(gag))
 		.catch((error) => res.status(404).json({ error }));
 };
-// récupération des 10 Gags correspondants aux critères des paramètres, par défault les 10 plus récent
+// récupération des 10 Gags correspondants aux critères des paramètres, par défault les 10 plus récents
 exports.getAllGags = (req, res, next) => {
 	//select order of the results based on the user choice
 	let customOrder = [["createdAt", "DESC"]];
@@ -140,7 +142,7 @@ exports.getAllGags = (req, res, next) => {
 	}
 	// calculate offset of results based on page number
 	const offset = req.query.page ? (parseInt(req.query.page) - 1) * 10 : 0;
-	// contenu recherché dans la descrpition
+	// contenu recherché dans la description (recherche FULLTEXT)
 	const search = req.query.search
 		? Sequelize.literal(
 				"MATCH (Gag.description) AGAINST ('" + req.query.search + "')"

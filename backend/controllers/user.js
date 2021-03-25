@@ -6,6 +6,7 @@ const Gag = require("../models/gag");
 const Comment = require("../models/comment");
 const Like = require("../models/like");
 var passwordCheck = new passwordValidator();
+// strength parameters of password
 passwordCheck
 	.is()
 	.min(8) // Minimum length 8
@@ -23,16 +24,20 @@ passwordCheck
 	.not()
 	.spaces(); // Should not have spaces
 
+// Manage Sign up of a new user
 exports.signup = (req, res, next) => {
+	// use of a work email ending with @groupomania.com
 	if (!req.body.email.endsWith("@groupomania.com")) {
 		return res.status(400).json({
 			error: "Email adress is not valid! Please use your work email!",
 		});
 	} else {
+		//check strength of password and hashing password
 		if (passwordCheck.validate(req.body.password)) {
 			bcrypt
 				.hash(req.body.password, 10)
 				.then((hash) => {
+					//creating and saving the new user to the database
 					User.create({ ...req.body, password: hash })
 						.then(() => res.status(201).json({ message: "User created !" }))
 						.catch((error) => res.status(400).json({ error }));
@@ -43,15 +48,20 @@ exports.signup = (req, res, next) => {
 		}
 	}
 };
+
+//Manage login of a User
 exports.login = (req, res, next) => {
+	//Find user in the database with the provided email
 	User.findOne({ where: { email: req.body.email } }).then((user) => {
 		if (user === null) {
 			return res.status(401).json({ error: "User not found!" });
 		}
+		//checking the password
 		bcrypt.compare(req.body.password, user.password).then((valid) => {
 			if (!valid) {
 				return res.status(401).json({ error: "Incorrect Password!" });
 			}
+			//sending back response the user containing its id, its admin rights, its token
 			res.status(200).json({
 				userId: user._id,
 				isAdmin: user.isAdmin,
@@ -64,6 +74,8 @@ exports.login = (req, res, next) => {
 		});
 	});
 };
+
+// manage the removal of a user
 exports.unsuscribe = (req, res, next) => {
 	//user must be logged in in order to unsuscribe, hence his request will arrive with an authorization token
 	if (req.tokenUserId == req.params.userid) {
@@ -82,7 +94,7 @@ exports.unsuscribe = (req, res, next) => {
 							individualHooks: true,
 						})
 							.then(() =>
-								//deleting the user of the user
+								//deleting the user itself
 								User.destroy({ where: { _id: req.params.userid } })
 									.then(() =>
 										res.status(200).json({ message: "Account deleted!" })
@@ -102,6 +114,7 @@ exports.unsuscribe = (req, res, next) => {
 	//comments and likes associated to destroyed gags are deleted by cascade
 };
 
+//get user profile : infos and the 10 most recent associated gags
 exports.getProfile = (req, res, next) => {
 	let fields = ["pseudo", "departement", "createdAt"];
 	if (req.params.userid == req.tokenUserId) {

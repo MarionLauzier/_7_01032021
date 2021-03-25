@@ -1,6 +1,7 @@
 const Comment = require("../models/comment");
 const User = require("../models/user");
 
+//build and save a new comment based on the data received
 exports.commentGag = (req, res, next) => {
 	delete req.body._id;
 	Comment.create({
@@ -10,6 +11,8 @@ exports.commentGag = (req, res, next) => {
 		.then(() => res.status(201).json({ message: "Comment is created !" }))
 		.catch((error) => res.status(400).json({ error }));
 };
+
+//modify and save the new content of the comment
 exports.updateCommGag = (req, res, next) => {
 	const comment = req.object;
 	delete req.body._id;
@@ -20,6 +23,8 @@ exports.updateCommGag = (req, res, next) => {
 		})
 		.catch((error) => res.status(400).json({ error }));
 };
+
+//delete a comment from the database
 exports.deleteCommGag = (req, res, next) => {
 	const comment = req.object;
 	comment
@@ -28,6 +33,7 @@ exports.deleteCommGag = (req, res, next) => {
 		.catch((error) => res.status(400).json({ error }));
 };
 
+//get all comments for a given gag
 exports.getAllCommGag = (req, res, next) => {
 	Comment.findAll({
 		where: { gagId: req.params.id },
