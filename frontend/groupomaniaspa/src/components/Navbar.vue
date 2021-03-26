@@ -55,6 +55,7 @@ export default {
 
 	img {
 		width: 20%;
+		min-width: 200px;
 		display: block;
 	}
 	nav {
@@ -79,6 +80,26 @@ export default {
 		}
 		&:hover {
 			transform: scale(1.05);
+		}
+	}
+}
+@media all and (max-width: 768px) {
+	#nav {
+		padding: 15px 15px;
+		img {
+			min-width: 150px;
+		}
+	}
+}
+@media all and (max-width: 600px) {
+	#nav {
+		flex-direction: column;
+	}
+}
+@media all and (max-width: 480px) {
+	#nav {
+		nav {
+			flex-direction: column;
 		}
 	}
 }

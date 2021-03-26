@@ -222,12 +222,14 @@ export default {
 			font-weight: bold;
 		}
 		p {
-			text-align: center;
+			text-align: left;
 		}
 	}
 	&__content1 {
 		display: flex;
 		justify-content: space-between;
+		flex-wrap: wrap;
+		row-gap: 0.5rem;
 		align-items: center;
 		p {
 			margin: 0.1rem 0 0.1rem 0;

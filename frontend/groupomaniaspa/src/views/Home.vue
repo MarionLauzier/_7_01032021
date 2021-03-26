@@ -24,7 +24,8 @@
 						placeholder="description"
 					/>
 					<button type="submit" @click="getGags">
-						<span class="fas fa-search"></span> Rechercher
+						<span class="fas fa-search"></span>
+						<span id="rech">Rechercher</span>
 					</button>
 				</div>
 				<p>Filtrer par:</p>
@@ -60,10 +61,20 @@
 				/>
 			</div>
 
-			<button type="button" v-if="page > 1" @click="previousPage">
+			<button
+				type="button"
+				v-if="page > 1"
+				@click="previousPage"
+				class="btn btn--modify"
+			>
 				<i class="fas fa-chevron-circle-left"></i> Page précédente
 			</button>
-			<button type="button" v-if="gags.length == 10" @click="nextPage">
+			<button
+				type="button"
+				v-if="gags.length == 10"
+				@click="nextPage"
+				class="btn btn--modify"
+			>
 				Page suivante <i class="fas fa-chevron-circle-right"></i>
 			</button>
 		</div>
@@ -157,6 +168,7 @@ export default {
 }
 
 #notconnected {
+	box-sizing: border-box;
 	background: white;
 	width: 60%;
 	margin: 5rem auto 5rem auto;
@@ -174,8 +186,18 @@ export default {
 		a {
 			color: #192b48;
 			font-weight: bold;
-			//text-decoration: none;
 		}
+	}
+}
+@media all and (max-width: 991px) {
+	#notconnected {
+		width: 80%;
+	}
+}
+@media all and (max-width: 600px) {
+	#notconnected {
+		width: 100%;
+		margin: 2rem auto 2rem auto;
 	}
 }
 #connected {
@@ -236,6 +258,57 @@ export default {
 		border: none;
 		box-shadow: 1px 1px 4px darken(#b3deff, 15%);
 		margin-top: 0;
+	}
+	& > button[type="button"] {
+		font-size: 1rem;
+		box-sizing: border-box;
+		width: 150px;
+	}
+}
+@media all and (max-width: 1300px) {
+	#connected {
+		form {
+			width: 70%;
+		}
+	}
+}
+@media all and (max-width: 1050px) {
+	#connected {
+		form {
+			width: 90%;
+		}
+	}
+}
+@media all and (max-width: 800px) {
+	#connected {
+		form {
+			width: 100%;
+			padding: 1rem;
+			.filters {
+				flex-wrap: wrap;
+				justify-content: space-evenly;
+				column-gap: 10px;
+				button {
+					margin: 0.5rem 0 0 0;
+				}
+			}
+		}
+	}
+}
+
+@media all and (max-width: 700px) {
+	#connected {
+		form {
+			.filters {
+				justify-content: space-between;
+				row-gap: 0.5rem;
+			}
+		}
+	}
+}
+@media all and (max-width: 400px) {
+	#rech {
+		display: none;
 	}
 }
 </style>

@@ -2,7 +2,7 @@
 	<div>
 		<Navbar />
 		<section id="idcard">
-			<h1>Profile de {{ pseudo }}</h1>
+			<h1>Profil de {{ pseudo }}</h1>
 
 			<p>
 				<img
@@ -135,8 +135,10 @@ export default {
 </script>
 <style lang="scss">
 #idcard {
+	box-sizing: border-box;
 	background: #cde9ff;
-	width: 20%;
+	width: 25%;
+	min-width: 350px;
 	margin: 1rem auto;
 	padding: 1rem;
 	border-radius: 20px;
@@ -151,5 +153,10 @@ export default {
 }
 h2 {
 	color: white;
+}
+@media all and (max-width: 400px) {
+	#idcard {
+		width: 100%;
+	}
 }
 </style>

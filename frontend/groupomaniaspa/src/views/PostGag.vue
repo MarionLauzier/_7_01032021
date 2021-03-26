@@ -190,7 +190,7 @@ h1 img {
 	box-shadow: 1px 1px 4px darken(#b3deff, 15%);
 	font-weight: bold;
 	transition: transform 150ms;
-	margin-top: 0.2rem;
+	margin: 0.3rem 0 0.5rem 0;
 	&:focus {
 		outline: none;
 		box-shadow: 0 0 5px darken(#b3deff, 30%);
@@ -206,10 +206,14 @@ h1 img {
 .preview {
 	display: flex;
 	flex-direction: column;
-}
-.preview img {
-	width: 30%;
-	margin: auto;
+	img {
+		width: 40%;
+		margin: auto;
+		max-height: 100%;
+	}
+	p {
+		margin: 0.5rem 0;
+	}
 }
 textarea {
 	border: 1px solid #192b48;
@@ -218,6 +222,11 @@ textarea {
 	color: #192b48;
 	&:focus {
 		box-shadow: 0 0 5px darken(#b3deff, 30%);
+	}
+}
+@media all and (max-width: 600px) {
+	textarea {
+		height: 75px;
 	}
 }
 </style>

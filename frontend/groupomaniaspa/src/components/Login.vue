@@ -63,6 +63,7 @@ form {
 		//margin-bottom: 1rem;
 		img {
 			width: 45px;
+			max-height: 51px;
 			margin: 0 0.5rem 0 0.5rem;
 		}
 	}
@@ -104,6 +105,22 @@ form {
 		&:focus:enabled {
 			transform: scale(1.05);
 		}
+	}
+}
+@media all and (max-width: 1200px) {
+	form {
+		width: 50%;
+	}
+}
+@media all and (max-width: 991px) {
+	form {
+		width: 70%;
+	}
+}
+@media all and (max-width: 600px) {
+	form {
+		width: 100%;
+		margin: 2rem auto 2rem auto;
 	}
 }
 </style>

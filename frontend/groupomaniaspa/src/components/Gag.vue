@@ -209,4 +209,20 @@ export default {
 .gag__resp {
 	margin: 0.2rem 0;
 }
+
+@media all and (max-width: 1300px) {
+	.gag {
+		width: 60%;
+	}
+}
+@media all and (max-width: 991px) {
+	.gag {
+		width: 80%;
+	}
+}
+@media all and (max-width: 630px) {
+	.gag {
+		width: 100%;
+	}
+}
 </style>
