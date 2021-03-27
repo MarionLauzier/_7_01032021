@@ -7,6 +7,8 @@ date de début: 01/03/2021
 ### Objectif: Créez un réseau social d'entreprise
 
 Créer la MVP d'une application web complète ayant les fonctionnalités d"un réseau social d'entreprise, interne et ludique pour l'entreprise de grande distribution Groupomania. L'application web permet aux utilisateurs d'ajouter des gags avec une image et une description, de les commenter et de les liker ou disliker.
+![Screenshot](readme/groupomania.png)
+
 Les exigences sont :
 
 - la présentation des fonctionnalités doit être simple
@@ -17,11 +19,6 @@ Les exigences sont :
 - le ou la chargé-e de communication Groupomania doit pouvoir modérer les interactions entre salariés
 
 La web app est composé de deux parties : une API backend et une partie frontend.
-
-L'API doit pouvoir communiquer avec la partie front-end disponible ici : https://github.com/OpenClassrooms-Student-Center/dwj-projet6
-qui peut être clonée et installée en local avec node.js et npm. (pour installer cette partie utiliser les commandes `npm install` puis `npm install node-sass` et lancer l'application avec la commande `ng server` et ouvrir Http://localhost/4200 sur la navigateur)
-
-![Screenshot](readme/groupomania.png)
 
 ### Fonctionnement du Backend:
 
@@ -44,9 +41,13 @@ Le frontend permet à l'utilisateur de se connecter et de se déconnecter à l'a
 **Prérequis:** NodeJS, NPM et mySQL doivent être déjà installé.
 
 1. Cloner le répertoire complet
-2. Dans le répertoire **backend**: 2. 1. Installer l'API avec la commande `npm install` 2. 2. Ouvrir une session MySQL root et importer le fichier config/config.sql ou copier-coller les instructions mySQL contenu dans ce fichier  
-   2. 3. Lancer l'API avec la commande `node server` ou `npm start` (l'API se lance à l'addresse: Http://localhost/3000)
-3. Dans le répertoire **frontend**: 3. 1. Installer la web app avec la commande `npm install` 3. 2. Lancer l'app avec la commande `npm run serve` (l'app se lance à l'addresse: Http://localhost/8080)
+2. Dans le répertoire **backend**:
+   1. Installer l'API avec la commande `npm install`
+   2. Ouvrir une session MySQL root et importer le fichier config/config.sql ou copier-coller les instructions mySQL contenu dans ce fichier
+   3. Lancer l'API avec la commande `node server` ou `npm start` (l'API se lance à l'addresse: Http://localhost/3000)
+3. Dans le répertoire **frontend**:
+   1. Installer la web app avec la commande `npm install`
+   2. Lancer l'app avec la commande `npm run serve` (l'app se lance à l'addresse: Http://localhost/8080)
 4. Rendez-vous sur Http://localhost/4200 pour intéragir avec la web app.
 
 ### Exemple d'utilisation:
