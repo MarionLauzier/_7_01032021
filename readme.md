@@ -48,7 +48,7 @@ Le frontend permet à l'utilisateur de se connecter et de se déconnecter à l'a
 3. Dans le répertoire **frontend**:
    1. Installer la web app avec la commande `npm install`
    2. Lancer l'app avec la commande `npm run serve` (l'app se lance à l'addresse: Http://localhost/8080)
-4. Rendez-vous sur Http://localhost/4200 pour intéragir avec la web app.
+4. Rendez-vous sur Http://localhost/8080 pour intéragir avec la web app.
 
 ### Exemple d'utilisation:
 

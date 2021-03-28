@@ -1,5 +1,5 @@
 <template>
-	<div id="nav">
+	<div id="nav" :key="componentKey">
 		<img alt="Groupomania logo" src="../assets/icon-left-font.png" />
 		<nav>
 			<router-link to="/" v-if="userId">
@@ -31,11 +31,12 @@
 export default {
 	name: "Navbar",
 	data() {
-		return { userId: this.$store.state.userId };
+		return { userId: this.$store.state.userId, componentKey: 0 };
 	},
 	methods: {
 		logout() {
 			this.$store.dispatch("logout");
+			this.componentKey += 1;
 			this.$router.push({ name: "Home" });
 		},
 	},
