@@ -53,6 +53,6 @@ Le frontend permet à l'utilisateur de se connecter et de se déconnecter à l'a
 ### Exemple d'utilisation:
 
 <p align="center"> 
-Aperçu de la page d'accueil après ajout de gags par les utilisateurs:
-    <img src="readme/accueil.png"/> 
+Exemple de rendu de la page d'un gag :
+    <img src="readme/screenshot.png"/> 
 </p>
