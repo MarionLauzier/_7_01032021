@@ -1,19 +1,18 @@
 <template>
 	<div class="postcomment">
-		<label for="content">
+		<label :for="'content_' + gagId">
 			<img class="logo" alt="Groupomania logo" src="../assets/icon-black.png" />
 			Votre commentaire (max. 255 caractères):
 		</label>
 
 		<textarea
-			type="text"
 			maxlength="255"
 			rows="2"
-			id="content"
+			:id="'content_' + gagId"
 			v-model="content"
 		></textarea>
 		<button type="button" @click="postComment" :disabled="!content">
-			<i class="fas fa-comment-alt"></i> Commenter
+			<em class="fas fa-comment-alt"></em> Commenter
 		</button>
 
 		<p>{{ response }}</p>

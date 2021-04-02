@@ -31,16 +31,16 @@
 				<p>Filtrer par:</p>
 				<div class="filters">
 					<button type="button" @click="sortQuery('recent')">
-						<i class="fas fa-calendar-alt"></i> Les + récents
+						<em class="fas fa-calendar-alt"></em> Les + récents
 					</button>
 					<button type="button" @click="sortQuery('popular')">
-						<i class="fas fa-thumbs-up"></i> Les + populaires
+						<em class="fas fa-thumbs-up"></em> Les + populaires
 					</button>
 					<button type="button" @click="sortQuery('unpopular')">
-						<i class="fas fa-thumbs-down"></i> Les - populaires
+						<em class="fas fa-thumbs-down"></em> Les - populaires
 					</button>
 					<button type="button" @click="sortQuery('comment')">
-						<i class="fas fa-comments"></i> Les + commentés
+						<em class="fas fa-comments"></em> Les + commentés
 					</button>
 				</div>
 				<p>{{ response }}</p>
@@ -67,7 +67,7 @@
 				@click="previousPage"
 				class="btn btn--modify"
 			>
-				<i class="fas fa-chevron-circle-left"></i> Page précédente
+				<em class="fas fa-chevron-circle-left"></em> Page précédente
 			</button>
 			<button
 				type="button"
@@ -75,7 +75,7 @@
 				@click="nextPage"
 				class="btn btn--modify"
 			>
-				Page suivante <i class="fas fa-chevron-circle-right"></i>
+				Page suivante <em class="fas fa-chevron-circle-right"></em>
 			</button>
 		</div>
 	</div>

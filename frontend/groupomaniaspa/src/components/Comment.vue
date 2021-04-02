@@ -23,7 +23,7 @@
 			v-show="detailComments"
 			v-for="comment in comments"
 			:key="comment._id"
-			:id="comment._id"
+			:id="'comment_' + comment._id"
 			class="comment__container"
 		>
 			<img class="logo" alt="Groupomania logo" src="../assets/icon-black.png" />
@@ -43,7 +43,7 @@
 							v-if="comment.userId == userId"
 							@click="modifyComment(comment._id)"
 						>
-							<i class="fas fa-edit"></i> Modifier
+							<em class="fas fa-edit"></em> Modifier
 						</button>
 						<button
 							type="button"
@@ -51,7 +51,7 @@
 							v-if="comment.userId == userId || isAdmin"
 							@click="deleteComment(comment._id)"
 						>
-							<i class="fas fa-trash"></i> Supprimer
+							<em class="fas fa-trash"></em> Supprimer
 						</button>
 					</div>
 				</div>
@@ -60,9 +60,21 @@
 					style="display:none"
 					class="comment__modif"
 				>
-					<input type="text" maxlength="255" :value="comment.content" />
+					<label
+						:for="'mod_input' + comment._id"
+						aria-hidden="false"
+						style="display: none;"
+					>
+						Modification du commentaire :</label
+					>
+					<input
+						:id="'mod_input' + comment._id"
+						type="text"
+						maxlength="255"
+						:value="comment.content"
+					/>
 					<button type="button" @click="updateComment(comment._id)">
-						<i class="fas fa-comment-alt"></i> Poster
+						<em class="fas fa-comment-alt"></em> Poster
 					</button>
 				</div>
 			</div>
@@ -123,7 +135,7 @@ export default {
 					if (message.error) {
 						this.response = message.error;
 					} else {
-						let com = document.getElementById(id);
+						let com = document.getElementById("comment_" + id);
 						com.remove();
 						this.nbCom -= 1;
 						this.response = "Votre commentaire a bien été supprimé!";

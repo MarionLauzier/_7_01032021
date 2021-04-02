@@ -13,7 +13,12 @@
 				v-model="email"
 				required
 				placeholder="@groupomania.com"
+				@input="checkEmail"
 			/>
+			<p class="info">Rappel: Utilisez votre email d'entreprise.</p>
+			<p v-if="emailChecked === false" class="alert">
+				Cette email n'est pas un email de l'entreprise!
+			</p>
 			<label for="password">Mot de Passe*</label>
 			<input type="password" id="password" v-model="password" required />
 			<p class="info">Les champs marqués d'un * sont obligatoires</p>
@@ -37,11 +42,19 @@ export default {
 		return {
 			email: "",
 			password: "",
+			emailChecked: "",
 		};
 	},
 	methods: {
 		login() {
 			this.$store.dispatch("login", [this.email, this.password]);
+		},
+		checkEmail() {
+			if (this.email.endsWith("@groupomania.com")) {
+				this.emailChecked = true;
+			} else {
+				this.emailChecked = false;
+			}
 		},
 	},
 };
@@ -60,7 +73,6 @@ form {
 	div {
 		display: flex;
 		justify-content: center;
-		//margin-bottom: 1rem;
 		img {
 			width: 45px;
 			max-height: 51px;

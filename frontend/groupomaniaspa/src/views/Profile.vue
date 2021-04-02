@@ -21,7 +21,15 @@
 			>
 				Se désinscrire
 			</button>
+			<p v-if="userId == $route.params.userId" class="alert">
+				<em class="fas fa-exclamation-triangle"></em> Attention, la
+				désincription entraîne la suppression de l'ensemble des avis et des
+				commentaires postés par l'utilisateur ainsi que tous ses gags y compris
+				les commentaires et les avis qui leurs sont associés.
+				<em class="fas fa-exclamation-triangle"></em>
+			</p>
 		</section>
+
 		<h2 v-if="gags[0]">Les gags les plus récents de {{ pseudo }}:</h2>
 		<div v-for="gag in gags" :key="gag._id" :id="gag._id">
 			<Gag
@@ -149,14 +157,26 @@ export default {
 	button {
 		font-size: 1rem;
 		margin: 0;
+		&:hover + .alert {
+			display: block;
+		}
+		&:focus + .alert {
+			display: block;
+		}
+	}
+	.alert {
+		display: none;
+		padding-top: 0.5rem;
 	}
 }
 h2 {
 	color: white;
+	background-color: #192b48;
 }
 @media all and (max-width: 400px) {
 	#idcard {
 		width: 100%;
+		min-width: 0px;
 	}
 }
 </style>

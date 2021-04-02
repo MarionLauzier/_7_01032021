@@ -1,10 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 import router from "../router/index.js";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+	plugins: [createPersistedState({ paths: ["userId", "isAdmin", "token"] })],
 	state: {
 		userId: "",
 		isAdmin: "",

@@ -3,25 +3,28 @@
 		<img alt="Groupomania logo" src="../assets/icon-left-font.png" />
 		<nav>
 			<router-link to="/" v-if="userId">
-				<i class="fas fa-hotel"></i> Accueil</router-link
+				<em class="fas fa-hotel"></em> Accueil</router-link
 			>
 			<router-link to="/signup" v-if="!userId">
-				<i class="fas fa-address-card"></i> S'inscrire</router-link
+				<em class="fas fa-address-card"></em> S'inscrire</router-link
 			>
 			<router-link to="/login" v-if="!userId">
-				<i class="fas fa-key"></i> Se connecter</router-link
+				<em class="fas fa-key"></em> Se connecter</router-link
 			>
-			<router-link to="/postgag" v-if="userId">
-				<i class="fas fa-plus-circle"></i> Nouveau Gag
-			</router-link>
+			<a
+				:href="$router.resolve({ name: 'PostGag', query: { mod: false } }).href"
+				v-if="userId"
+			>
+				<em class="fas fa-plus-circle"></em> Nouveau Gag
+			</a>
 			<router-link
 				:to="{ name: 'Profile', params: { userId: userId } }"
 				v-if="userId"
 			>
-				<i class="fas fa-user-circle"></i> Profil
+				<em class="fas fa-user-circle"></em> Profil
 			</router-link>
 			<a @click="logout" v-if="userId" tabindex="0">
-				<i class="fas fa-power-off"></i> Se déconnecter</a
+				<em class="fas fa-power-off"></em> Se déconnecter</a
 			>
 		</nav>
 	</div>
@@ -36,8 +39,11 @@ export default {
 	methods: {
 		logout() {
 			this.$store.dispatch("logout");
-			this.componentKey += 1;
-			this.$router.push({ name: "Home" });
+			if (this.$route.path == "/") {
+				this.$router.go();
+			} else {
+				this.$router.push({ name: "Home" });
+			}
 		},
 	},
 };

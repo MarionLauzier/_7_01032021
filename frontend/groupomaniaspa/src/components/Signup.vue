@@ -155,7 +155,7 @@ Vérifier mot de passe, et égalité avec mot de passe 2, vérifier email
 @groupomania
 <style lang="scss">
 .alert {
-	color: #dd3e5b;
+	color: #c32240;
 	margin-top: 0;
 }
 </style>

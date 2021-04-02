@@ -23,7 +23,7 @@
 			v-if="gagUserId == userId"
 			@click="modifyGag"
 		>
-			<i class="fas fa-edit"></i> Modifier
+			<em class="fas fa-edit"></em> Modifier
 		</button>
 		<button
 			class="btn btn--delete"
@@ -31,7 +31,7 @@
 			v-if="gagUserId == userId || isAdmin"
 			@click="deleteGag(gagId)"
 		>
-			<i class="fas fa-trash"></i> Supprimer
+			<em class="fas fa-trash"></em> Supprimer
 		</button>
 		<Comment :gagId="gagId" :nbComments="nbComs" :showComments="showComments" />
 		<PostComment :gagId="gagId" @reload-comments="incrKey" />

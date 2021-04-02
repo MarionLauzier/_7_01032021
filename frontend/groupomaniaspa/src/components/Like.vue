@@ -8,7 +8,7 @@
 					class="like--true"
 					@click="postLike(0)"
 				>
-					<i class="fas fa-arrow-alt-circle-up"></i> <span> J'aime</span>
+					<em class="fas fa-arrow-alt-circle-up"></em> <span> J'aime</span>
 				</button>
 				<button
 					type="button"
@@ -16,7 +16,7 @@
 					v-show="!isLikedByUser"
 					:disabled="isLikedByUser === false"
 				>
-					<i class="fas fa-arrow-alt-circle-up"></i>
+					<em class="fas fa-arrow-alt-circle-up"></em>
 					<span> J'aime</span>
 				</button>
 				<p>{{ totalLikes }} J'aime</p>
@@ -28,7 +28,7 @@
 					v-show="isLikedByUser === false"
 					@click="postLike(0)"
 				>
-					<i class="fas fa-arrow-alt-circle-down"></i> Je n'aime pas
+					<em class="fas fa-arrow-alt-circle-down"></em> Je n'aime pas
 				</button>
 				<button
 					type="button"
@@ -36,7 +36,7 @@
 					:disabled="isLikedByUser === true"
 					@click="postLike(-1)"
 				>
-					<i class="fas fa-arrow-alt-circle-down"></i> Je n'aime pas
+					<em class="fas fa-arrow-alt-circle-down"></em> Je n'aime pas
 				</button>
 				<p>{{ totalDislikes }} Je n'aime pas</p>
 			</div>
@@ -109,7 +109,6 @@ export default {
 	flex-wrap: wrap;
 	row-gap: 5px;
 	padding: 0 0rem 0 2rem;
-	//align-items: center;
 	div {
 		display: flex;
 		align-items: center;
@@ -133,7 +132,7 @@ export default {
 			&:hover:enabled {
 				transform: scale(1.05);
 			}
-			i {
+			em {
 				font-size: 2rem;
 				vertical-align: middle;
 				margin-left: -1rem;
@@ -153,8 +152,8 @@ export default {
 			text-align: left;
 		}
 		.like--true {
-			color: #2a9e82;
-			border-color: #2a9e82;
+			color: #22816a;
+			border-color: #22816a;
 		}
 		.like--false {
 			color: #c32240;

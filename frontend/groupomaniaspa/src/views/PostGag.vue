@@ -18,7 +18,7 @@
 				:required="!mod"
 			/>
 			<div v-if="image" class="preview">
-				<img :src="image" />
+				<img :src="image" :alt="alttext" />
 				<p>{{ file.name }}</p>
 			</div>
 			<label for="description"> Décrire le gag (max. 255 caractères)* </label>
@@ -66,6 +66,15 @@ export default {
 			mod: false,
 			gagId: "",
 		};
+	},
+	computed: {
+		alttext() {
+			if (this.gagId) {
+				return "image of gag" + this.gagId;
+			} else {
+				return this.file.name;
+			}
+		},
 	},
 	methods: {
 		onFileChange(e) {
@@ -167,11 +176,13 @@ export default {
 		},
 	},
 	created() {
-		if (this.$route.query.mod == true) this.mod = true;
-		const gagToModified = this.$store.state.gagMod;
-		this.description = gagToModified.description;
-		this.image = gagToModified.imageUrl;
-		this.gagId = gagToModified.gagId;
+		if (this.$route.query.mod == true) {
+			this.mod = true;
+			const gagToModified = this.$store.state.gagMod;
+			this.description = gagToModified.description;
+			this.image = gagToModified.imageUrl;
+			this.gagId = gagToModified.gagId;
+		}
 	},
 };
 </script>
